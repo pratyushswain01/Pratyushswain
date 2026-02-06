@@ -2,297 +2,390 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratyush Swain | Founder UPSChub™</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PRATYUSH SWAIN | The Founder Vision 2.0</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #a855f7;
-            --bg: #f8fafc;
-            --card: rgba(255, 255, 255, 0.75);
+            --accent: #6366f1;
+            --text: #0a0a0a;
+            --bg: #ffffff;
             --border: rgba(0, 0, 0, 0.08);
-            --text-main: #020617;
-            --text-soft: #475569;
+            --card-bg: #fafafa;
         }
 
+        /* Basic Setup */
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: none !important;
         }
 
         body {
-            background: linear-gradient(180deg, #f8fafc, #eef2ff);
-            color: var(--text-main);
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
-            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- SOFT BACKGROUND --- */
-        .mesh {
+        /* --- LIQUID CURSOR CANVAS --- */
+        #cursor-canvas {
             position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(circle at 15% 20%, rgba(99,102,241,0.15), transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(168,85,247,0.15), transparent 40%);
-            z-index: -1;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
         }
 
-        /* --- FLOATING NAV --- */
-        .nav-wrapper {
+        .cursor-dot {
             position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-        }
-
-        header {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border);
-            padding: 8px 24px;
-            border-radius: 100px;
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .logo-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 800;
-            font-size: 1.1rem;
-        }
-
-        .blinker {
-            width: 10px;
-            height: 10px;
-            background: #22c55e;
+            width: 6px; height: 6px;
+            background: var(--text);
             border-radius: 50%;
-            box-shadow: 0 0 10px #22c55e;
-            animation: pulse 1.5s infinite;
+            z-index: 10000;
+            pointer-events: none;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.3); opacity: 0.5; }
-            100% { transform: scale(1); opacity: 1; }
+        /* --- PRELOADER --- */
+        #loader {
+            position: fixed;
+            inset: 0; background: #000;
+            z-index: 20000;
+            display: flex; justify-content: center; align-items: center;
+            color: #fff; font-family: 'Syncopate';
+            font-size: 0.8rem; letter-spacing: 4px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 30px 50px;
+            display: flex; justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Syncopate';
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .nav-link-wrapper { display: flex; gap: 30px; }
+        .nav-item {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* --- HERO --- */
         .hero {
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
+            display: flex; align-items: center;
+            justify-content: center; text-align: center;
+            padding: 0 5vw;
         }
 
-        .badge {
-            background: rgba(99,102,241,0.1);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .hero-sub {
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
             margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 10vw, 5rem);
-            font-weight: 800;
-            line-height: 1;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, #020617, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-soft);
-            margin-bottom: 30px;
-        }
-
-        /* --- BUTTONS --- */
-        .cta-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn-main {
-            background: var(--primary);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 12px;
-            text-decoration: none;
+            display: block;
             font-weight: 700;
-            transition: 0.3s;
         }
 
-        .btn-main:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(99,102,241,0.3);
+        .hero-title {
+            font-size: clamp(3.5rem, 12vw, 11rem);
+            font-family: 'Syncopate';
+            font-weight: 700;
+            line-height: 0.85;
+            text-transform: uppercase;
         }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border);
+        .outline-text {
+            -webkit-text-stroke: 1.5px var(--text);
+            color: transparent;
         }
 
-        /* --- BENTO GRID --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 100px 20px;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: 200px;
-            gap: 20px;
-        }
-
-        .bento-item {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 25px;
-            transition: 0.3s;
+        /* --- HORIZONTAL ENGINE --- */
+        .horizontal-wrapper {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            backdrop-filter: blur(10px);
+            width: 400%; /* Total panels */
+            height: 100vh;
         }
 
-        .bento-item:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        .panel {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5vw;
+            flex-shrink: 0;
         }
 
-        .large { grid-column: span 2; grid-row: span 2; }
-        .tall { grid-row: span 2; }
-
-        .bento-item i {
-            color: var(--primary);
-            margin-bottom: 15px;
+        /* --- MODERN BENTO CARDS --- */
+        .bento-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: clamp(20px, 5vw, 60px);
+            width: 90vw; height: 75vh;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            position: relative;
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .bento-item h3 {
-            font-size: 1.4rem;
-            margin-bottom: 5px;
+        .bento-card:hover {
+            border-color: var(--accent);
+            transform: scale(0.99);
+            background: #fff;
         }
 
-        .bento-item p {
-            font-size: 0.95rem;
-            color: var(--text-soft);
+        .project-num {
+            position: absolute;
+            top: -20px; right: 40px;
+            font-family: 'Syncopate';
+            font-size: clamp(4rem, 10vw, 8rem);
+            opacity: 0.04;
+            pointer-events: none;
         }
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 50px 20px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-soft);
+        .card-content h2 {
+            font-family: 'Syncopate';
+            font-size: clamp(1.8rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 768px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-                grid-auto-rows: auto;
-            }
-            .large, .tall {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+        .tag {
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
         }
+
+        .card-visual {
+            background: #f1f1f1;
+            border-radius: 30px;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+
+        /* --- CONTACT --- */
+        .contact-content { text-align: center; width: 100%; }
+        .contact-trigger {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-family: 'Syncopate';
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+            transition: 0.5s;
+            line-height: 1;
+        }
+        .contact-trigger:hover { color: var(--accent); transform: skewX(-5deg); }
+
+        /* --- NOISE --- */
+        .noise {
+            position: fixed; inset: 0; z-index: 9998;
+            opacity: 0.04; pointer-events: none;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+        }
+
+        /* --- MOBILE TWEAKS --- */
+        @media (max-width: 900px) {
+            .bento-card { grid-template-columns: 1fr; height: auto; padding: 40px 30px; margin-top: 50px;}
+            .card-visual { height: 200px; order: -1; }
+            nav { padding: 20px; }
+            .nav-link-wrapper { display: none; }
+            #cursor-canvas, .cursor-dot { display: none; }
+            * { cursor: auto !important; }
+        }
+
+        .reveal { opacity: 0; transform: translateY(40px); }
     </style>
 </head>
-
 <body>
 
-<div class="mesh"></div>
+    <div id="loader">INITIALIZING VISION // PRATYUSH SWAIN</div>
+    <div class="noise"></div>
+    <div class="cursor-dot"></div>
+    <canvas id="cursor-canvas"></canvas>
 
-<div class="nav-wrapper">
-    <header>
-        <a href="#" class="logo-box">
-            <div class="blinker"></div>
-            Pratyush Swain 
-        </a>
-        <div style="width:1px;height:20px;background:var(--border);"></div>
-        <a href="mailto:pratyushkumarswain01@gmail.com" style="text-decoration:none;color:var(--text-main);font-size:0.9rem;">
-            contact me
-        </a>
-    </header>
-</div>
+    <nav>
+        <a href="#" class="logo magnetic">PS™</a>
+        <div class="nav-link-wrapper">
+            <a href="#work" class="nav-item magnetic">Archive</a>
+            <a href="#about" class="nav-item magnetic">Vision</a>
+            <a href="#contact" class="nav-item magnetic">Contact</a>
+        </div>
+    </nav>
 
-<section class="hero">
-    <div class="badge">AVAILABLE FOR PROJECTS</div>
-    <h1>Founder of <span style="color:var(--primary);">UPSChub™</span></h1>
-    <p>Pratyush Swain — Educator & Tech Architect</p>
-    <div class="cta-group">
-        <a href="#work" class="btn-main">View Projects</a>
-        <a href="https://upschub.online" class="btn-main btn-outline">Visit Hub</a>
+    <section class="hero">
+        <div>
+            <span class="hero-sub reveal">Digital Architect • Founder</span>
+            <h1 class="hero-title reveal">UPSChub<br><span class="outline-text">Ecosystem</span></h1>
+            <div class="reveal" style="margin-top: 60px;">
+                <i data-lucide="chevrons-down" class="magnetic" style="width: 40px; height: 40px; opacity: 0.5;"></i>
+            </div>
+        </div>
+    </section>
+
+    <div class="horizontal-wrapper">
+        
+        <section class="panel" id="work">
+            <div class="bento-card">
+                <span class="project-num">01</span>
+                <div class="card-content">
+                    <span class="tag" style="border-color: var(--accent); color: var(--accent);">Active Platform</span>
+                    <h2>UPSChub™<br>EdTech</h2>
+                    <p style="font-size: 1.1rem; color: #555; max-width: 450px;">A sophisticated learning environment designed for precision and scalability. Currently powering thousands of successful aspirants.</p>
+                    <div class="tag-cloud">
+                        <span class="tag">Firebase</span><span class="tag">Node.js</span><span class="tag">Capacitor</span>
+                    </div>
+                </div>
+                <div class="card-visual">
+                    <i data-lucide="layers" size="120" stroke-width="0.5"></i>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="bento-card">
+                <span class="project-num">02</span>
+                <div class="card-visual">
+                    <i data-lucide="cpu" size="120" stroke-width="0.5"></i>
+                </div>
+                <div class="card-content">
+                    <span class="tag">Methodology</span>
+                    <h2>Physics Based<br>Architecture</h2>
+                    <p style="font-size: 1.1rem; color: #555;">Applying first-principles thinking from Physics to software design. Flawless logic meets creative frontend engineering.</p>
+                    <div class="tag-cloud">
+                        <span class="tag">Analytical UI</span><span class="tag">System Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel" id="contact">
+            <div class="contact-content">
+                <span class="hero-sub">Direct Line</span>
+                <a href="mailto:pratyushkumarswain01@gmail.com" class="contact-trigger">LET'S BUILD →</a>
+                <div style="margin-top: 60px; display: flex; gap: 30px; justify-content: center;">
+                    <span class="tag">Twitter</span><span class="tag">LinkedIn</span><span class="tag">GitHub</span>
+                </div>
+            </div>
+        </section>
+
     </div>
-</section>
 
-<div class="container" id="work">
-    <div class="bento-grid">
-        <div class="bento-item large">
-            <i data-lucide="layout"></i>
-            <h3>UPSChub Platform</h3>
-            <p>A full-stack ecosystem for civil service aspirants featuring test series, AI analysis, and resource tracking.</p>
-        </div>
+    <footer style="padding: 40px 50px; display: flex; justify-content: space-between; border-top: 1px solid var(--border); font-weight: 700; font-size: 0.7rem; letter-spacing: 2px;">
+        <span>PRATYUSH SWAIN © 2026</span>
+        <span>FOUNDER OF UPSCHUB</span>
+    </footer>
 
-        <div class="bento-item tall">
-            <i data-lucide="cpu"></i>
-            <h3>Tech Stack</h3>
-            <p>Expertise in HTML, CSS, JavaScript, Firebase, and Capacitor for cross-platform app deployment.</p>
-        </div>
+    <script>
+        // 1. LIQUID CURSOR ENGINE (Optimized)
+        const canvas = document.getElementById('cursor-canvas');
+        const ctx = canvas.getContext('2d');
+        const dot = document.querySelector('.cursor-dot');
+        let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+        let lastMouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
 
-        <div class="bento-item">
-            <i data-lucide="users"></i>
-            <h3>Community</h3>
-            <p>Scaling a community of learners through digital education.</p>
-        </div>
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
 
-        <div class="bento-item">
-            <i data-lucide="graduation-cap"></i>
-            <h3>Physics Background</h3>
-            <p>B.Sc Physics @ Berhampur University.</p>
-        </div>
-    </div>
-</div>
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            gsap.to(dot, { x: mouse.x - 3, y: mouse.y - 3, duration: 0.1 });
+        });
 
-<footer>
-    <p>&copy; 2026 Pratyush Swain. Built with precision.</p>
-</footer>
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const dx = mouse.x - lastMouse.x;
+            const dy = mouse.y - lastMouse.y;
+            const speed = Math.sqrt(dx*dx + dy*dy);
+            
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 12 + speed/1.5, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
 
-<script>
-    lucide.createIcons();
+            lastMouse.x += (mouse.x - lastMouse.x) * 0.15;
+            lastMouse.y += (mouse.y - lastMouse.y) * 0.15;
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
+            requestAnimationFrame(render);
+        }
+        render();
+
+        // 2. SMOOTH LOAD & REVEALS
+        window.addEventListener('load', () => {
+            gsap.to("#loader", { yPercent: -100, duration: 1.2, ease: "expo.inOut", delay: 1 });
+            gsap.to(".reveal", { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: "power4.out", delay: 1.5 });
+        });
+
+        // 3. HORIZONTAL SCROLL (GSAP + ScrollTrigger)
+        gsap.registerPlugin(ScrollTrigger);
+        
+        let sections = gsap.utils.toArray(".panel");
+        let horizontalScroll = gsap.to(sections, {
+            xPercent: -100 * (sections.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".horizontal-wrapper",
+                pin: true,
+                scrub: 1,
+                end: () => "+=" + window.innerWidth * 3,
+                invalidateOnRefresh: true
+            }
+        });
+
+        // 4. MAGNETIC LOGIC
+        const magnets = document.querySelectorAll('.magnetic');
+        magnets.forEach(m => {
+            m.addEventListener('mousemove', (e) => {
+                const rect = m.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width/2) * 0.4;
+                const y = (e.clientY - rect.top - rect.height/2) * 0.4;
+                gsap.to(m, { x: x, y: y, duration: 0.3 });
+                gsap.to(dot, { scale: 4, background: "var(--accent)" });
+            });
+            m.addEventListener('mouseleave', () => {
+                gsap.to(m, { x: 0, y: 0, duration: 0.3 });
+                gsap.to(dot, { scale: 1, background: "var(--text)" });
             });
         });
-    });
-</script>
 
+        // Initialize Icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
