@@ -2,390 +2,275 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>PRATYUSH SWAIN | The Founder Vision 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratyush Swain | pratyushswain.in</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
         :root {
-            --accent: #6366f1;
-            --text: #0a0a0a;
-            --bg: #ffffff;
-            --border: rgba(0, 0, 0, 0.08);
-            --card-bg: #fafafa;
+            --bg: #fafafa;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --accent: #4f46e5;
+            --subtext: #64748b;
+            --border: rgba(0, 0, 0, 0.05);
+            /* Small button/font sizing constants */
+            --btn-pad: 6px 14px;
+            --radius: 8px;
         }
 
-        /* Basic Setup */
-        * {
-            margin: 0; padding: 0; box-sizing: border-box;
-            font-family: 'Space Grotesk', sans-serif;
-            cursor: none !important;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        
+        html { scroll-behavior: smooth; font-size: 14px; } /* Base font slightly smaller for pro look */
 
-        body {
-            background: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.5; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* --- LIQUID CURSOR CANVAS --- */
-        #cursor-canvas {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
+        /* --- MICROSCOPIC LOADER --- */
+        #preloader { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
+        .loader-bar { width: 100px; height: 1px; background: var(--border); overflow: hidden; }
+        .loader-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.3s ease; }
+
+        /* --- PRECISION NAV --- */
+        nav { 
+            position: fixed; top: 0; width: 100%; 
+            padding: 10px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            z-index: 1000; backdrop-filter: blur(12px); 
+            border-bottom: 1px solid var(--border); 
+            background: rgba(250, 250, 250, 0.7); 
+        }
+        .logo { font-family: 'Space Grotesk'; font-weight: 700; font-size: 0.85rem; text-decoration: none; color: var(--text); letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--subtext); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-cta { 
+            background: var(--text); color: #fff !important; 
+            padding: 5px 12px; border-radius: 6px; font-size: 0.65rem !important; 
         }
 
-        .cursor-dot {
-            position: fixed;
-            width: 6px; height: 6px;
-            background: var(--text);
-            border-radius: 50%;
-            z-index: 10000;
-            pointer-events: none;
+        /* --- COMPACT HERO --- */
+        header { 
+            padding: 120px 5% 40px; 
+            max-width: 900px; margin: 0 auto; 
+        }
+        .status { 
+            display: inline-flex; align-items: center; gap: 6px; 
+            padding: 3px 10px; background: #fff; border: 1px solid var(--border); 
+            border-radius: 100px; color: var(--subtext); font-size: 0.55rem; 
+            font-weight: 700; margin-bottom: 20px; 
+        }
+        .dot { width: 4px; height: 4px; background: #10b981; border-radius: 50%; box-shadow: 0 0 5px #10b981; }
+        
+        h1 { 
+            font-family: 'Space Grotesk'; 
+            font-size: clamp(1.8rem, 6vw, 2.8rem); 
+            line-height: 1; letter-spacing: -1.5px; margin-bottom: 15px; 
+        }
+        .hero-sub { font-size: 0.85rem; color: var(--subtext); max-width: 450px; line-height: 1.6; }
+
+        /* --- BENTO SYSTEM --- */
+        .container { padding: 0 5% 60px; max-width: 900px; margin: 0 auto; }
+        .bento { 
+            display: grid; 
+            grid-template-columns: repeat(6, 1fr); 
+            gap: 12px; 
+            grid-auto-rows: minmax(min-content, max-content);
+        }
+        .card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--border); 
+            border-radius: var(--radius); 
+            padding: 20px; 
+            display: flex; flex-direction: column; 
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
+        
+        /* Grid Spans */
+        .card.wide { grid-column: span 4; }
+        .card.small { grid-column: span 2; }
+        .card.full { grid-column: span 6; }
+
+        .icon-box { 
+            width: 28px; height: 28px; background: var(--bg); 
+            border-radius: 6px; display: flex; align-items: center; 
+            justify-content: center; margin-bottom: 12px; color: var(--accent); 
+        }
+        h3 { font-family: 'Space Grotesk'; font-size: 0.9rem; margin-bottom: 6px; }
+        p { color: var(--subtext); font-size: 0.75rem; line-height: 1.5; }
+
+        /* --- AI LIST --- */
+        .ai-list { margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+        .ai-item { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 600; }
+
+        /* --- COMPACT CONTACT --- */
+        .contact { 
+            background: #fff; border: 1px solid var(--border); 
+            border-radius: var(--radius); padding: 35px 20px; 
+            text-align: center; margin-top: 40px; 
+        }
+        .socials { display: flex; justify-content: center; gap: 8px; margin: 15px 0; flex-wrap: wrap; }
+        .social-btn { 
+            padding: 5px 12px; background: var(--bg); border: 1px solid var(--border); 
+            border-radius: 5px; text-decoration: none; color: var(--text); 
+            font-size: 0.6rem; font-weight: 700; transition: 0.2s; 
+        }
+        .social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+        
+        .cta-mail { 
+            display: inline-flex; align-items: center; gap: 6px; 
+            padding: 8px 20px; background: var(--accent); color: #fff; 
+            text-decoration: none; border-radius: 6px; font-weight: 700; 
+            font-size: 0.75rem; margin-top: 10px;
         }
 
-        /* --- PRELOADER --- */
-        #loader {
-            position: fixed;
-            inset: 0; background: #000;
-            z-index: 20000;
-            display: flex; justify-content: center; align-items: center;
-            color: #fff; font-family: 'Syncopate';
-            font-size: 0.8rem; letter-spacing: 4px;
+        footer { 
+            padding: 40px 5%; display: flex; justify-content: space-between; 
+            font-size: 0.55rem; color: #94a3b8; font-weight: 700; 
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 30px 50px;
-            display: flex; justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+        /* --- SMART MOBILE OVERRIDES --- */
+        @media (max-width: 768px) {
+            .bento { grid-template-columns: 1fr; }
+            .card.wide, .card.small, .card.full { grid-column: span 1; }
+            .nav-links a:not(.nav-cta) { display: none; }
+            header { padding-top: 100px; }
+            .container { padding-bottom: 40px; }
         }
 
-        .logo {
-            font-family: 'Syncopate';
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 3px;
-            text-decoration: none;
-            color: var(--text);
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .card { padding: 15px; }
         }
-
-        .nav-link-wrapper { display: flex; gap: 30px; }
-        .nav-item {
-            text-decoration: none;
-            color: var(--text);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* --- HERO --- */
-        .hero {
-            height: 100vh;
-            display: flex; align-items: center;
-            justify-content: center; text-align: center;
-            padding: 0 5vw;
-        }
-
-        .hero-sub {
-            font-size: clamp(0.8rem, 2vw, 1.1rem);
-            letter-spacing: 6px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 20px;
-            display: block;
-            font-weight: 700;
-        }
-
-        .hero-title {
-            font-size: clamp(3.5rem, 12vw, 11rem);
-            font-family: 'Syncopate';
-            font-weight: 700;
-            line-height: 0.85;
-            text-transform: uppercase;
-        }
-
-        .outline-text {
-            -webkit-text-stroke: 1.5px var(--text);
-            color: transparent;
-        }
-
-        /* --- HORIZONTAL ENGINE --- */
-        .horizontal-wrapper {
-            display: flex;
-            width: 400%; /* Total panels */
-            height: 100vh;
-        }
-
-        .panel {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 5vw;
-            flex-shrink: 0;
-        }
-
-        /* --- MODERN BENTO CARDS --- */
-        .bento-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: clamp(20px, 5vw, 60px);
-            width: 90vw; height: 75vh;
-            max-width: 1200px;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-            position: relative;
-            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .bento-card:hover {
-            border-color: var(--accent);
-            transform: scale(0.99);
-            background: #fff;
-        }
-
-        .project-num {
-            position: absolute;
-            top: -20px; right: 40px;
-            font-family: 'Syncopate';
-            font-size: clamp(4rem, 10vw, 8rem);
-            opacity: 0.04;
-            pointer-events: none;
-        }
-
-        .card-content h2 {
-            font-family: 'Syncopate';
-            font-size: clamp(1.8rem, 4vw, 3.5rem);
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-
-        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
-        .tag {
-            padding: 10px 20px;
-            border: 1px solid var(--border);
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .card-visual {
-            background: #f1f1f1;
-            border-radius: 30px;
-            display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
-        }
-
-        /* --- CONTACT --- */
-        .contact-content { text-align: center; width: 100%; }
-        .contact-trigger {
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-family: 'Syncopate';
-            text-decoration: none;
-            color: var(--text);
-            display: block;
-            transition: 0.5s;
-            line-height: 1;
-        }
-        .contact-trigger:hover { color: var(--accent); transform: skewX(-5deg); }
-
-        /* --- NOISE --- */
-        .noise {
-            position: fixed; inset: 0; z-index: 9998;
-            opacity: 0.04; pointer-events: none;
-            background: url('https://grainy-gradients.vercel.app/noise.svg');
-        }
-
-        /* --- MOBILE TWEAKS --- */
-        @media (max-width: 900px) {
-            .bento-card { grid-template-columns: 1fr; height: auto; padding: 40px 30px; margin-top: 50px;}
-            .card-visual { height: 200px; order: -1; }
-            nav { padding: 20px; }
-            .nav-link-wrapper { display: none; }
-            #cursor-canvas, .cursor-dot { display: none; }
-            * { cursor: auto !important; }
-        }
-
-        .reveal { opacity: 0; transform: translateY(40px); }
     </style>
 </head>
 <body>
 
-    <div id="loader">INITIALIZING VISION // PRATYUSH SWAIN</div>
-    <div class="noise"></div>
-    <div class="cursor-dot"></div>
-    <canvas id="cursor-canvas"></canvas>
+    <div id="preloader"><div class="loader-bar"><div class="loader-fill"></div></div></div>
 
     <nav>
-        <a href="#" class="logo magnetic">PS™</a>
-        <div class="nav-link-wrapper">
-            <a href="#work" class="nav-item magnetic">Archive</a>
-            <a href="#about" class="nav-item magnetic">Vision</a>
-            <a href="#contact" class="nav-item magnetic">Contact</a>
+        <a href="#" class="logo">pratyushswain<span>.in</span></a>
+        <div class="nav-links">
+            <a href="#vision">Vision</a>
+            <a href="#about">Founder</a>
+            <a href="#contact" class="nav-cta">Connect</a>
         </div>
     </nav>
 
-    <section class="hero">
-        <div>
-            <span class="hero-sub reveal">Digital Architect • Founder</span>
-            <h1 class="hero-title reveal">UPSChub<br><span class="outline-text">Ecosystem</span></h1>
-            <div class="reveal" style="margin-top: 60px;">
-                <i data-lucide="chevrons-down" class="magnetic" style="width: 40px; height: 40px; opacity: 0.5;"></i>
-            </div>
+    <header>
+        <div class="reveal">
+            <div class="status"><div class="dot"></div>SYSTEMS // ODISHA</div>
+            <h1>Pratyush Swain</h1>
+            <p class="hero-sub">Founder of <b>UPSChub</b>. Engineering efficient learning ecosystems through Physics and AI-driven logic.</p>
         </div>
-    </section>
+    </header>
 
-    <div class="horizontal-wrapper">
-        
-        <section class="panel" id="work">
-            <div class="bento-card">
-                <span class="project-num">01</span>
-                <div class="card-content">
-                    <span class="tag" style="border-color: var(--accent); color: var(--accent);">Active Platform</span>
-                    <h2>UPSChub™<br>EdTech</h2>
-                    <p style="font-size: 1.1rem; color: #555; max-width: 450px;">A sophisticated learning environment designed for precision and scalability. Currently powering thousands of successful aspirants.</p>
-                    <div class="tag-cloud">
-                        <span class="tag">Firebase</span><span class="tag">Node.js</span><span class="tag">Capacitor</span>
-                    </div>
-                </div>
-                <div class="card-visual">
-                    <i data-lucide="layers" size="120" stroke-width="0.5"></i>
+    <div class="container">
+        <div class="bento">
+            
+            <div class="card wide reveal" id="vision">
+                <div class="icon-box"><i data-lucide="eye" size="14"></i></div>
+                <h3>The Vision</h3>
+                <p><b>UPSChub</b> modernizes Civil Services prep, bridging traditional methods with a high-performance digital-first infrastructure.</p>
+            </div>
+
+            <div class="card small reveal">
+                <div class="icon-box"><i data-lucide="bar-chart-3" size="14"></i></div>
+                <h3>Analytics</h3>
+                <p>Data-driven insights to track pattern recognition and growth.</p>
+            </div>
+
+            <div class="card full reveal" id="about">
+                <div class="icon-box"><i data-lucide="user" size="14"></i></div>
+                <h3>Meet the Founder</h3>
+                <p>Based in <b>Berhampur, Odisha</b>, Pratyush combines a <b>B.Sc. in Physics</b> with a passion for AI to empower the next generation of civil servants with analytical discipline.</p>
+            </div>
+
+            <div class="card wide reveal">
+                <div class="icon-box"><i data-lucide="cpu" size="14"></i></div>
+                <h3>AI Integration</h3>
+                <p>Proprietary tools designed for high-stakes exam efficiency:</p>
+                <div class="ai-list">
+                    <div class="ai-item"><i data-lucide="check" size="12" style="color:var(--accent)"></i> AI Curation</div>
+                    <div class="ai-item"><i data-lucide="check" size="12" style="color:var(--accent)"></i> Smart Pedagogy</div>
+                    <div class="ai-item"><i data-lucide="check" size="12" style="color:var(--accent)"></i> Pattern Analysis</div>
                 </div>
             </div>
-        </section>
 
-        <section class="panel">
-            <div class="bento-card">
-                <span class="project-num">02</span>
-                <div class="card-visual">
-                    <i data-lucide="cpu" size="120" stroke-width="0.5"></i>
-                </div>
-                <div class="card-content">
-                    <span class="tag">Methodology</span>
-                    <h2>Physics Based<br>Architecture</h2>
-                    <p style="font-size: 1.1rem; color: #555;">Applying first-principles thinking from Physics to software design. Flawless logic meets creative frontend engineering.</p>
-                    <div class="tag-cloud">
-                        <span class="tag">Analytical UI</span><span class="tag">System Design</span>
-                    </div>
-                </div>
+            <div class="card small reveal">
+                <div class="icon-box"><i data-lucide="map-pin" size="14"></i></div>
+                <h3>Location</h3>
+                <p>Berhampur, IN. Scaling nationwide.</p>
             </div>
-        </section>
 
-        <section class="panel" id="contact">
-            <div class="contact-content">
-                <span class="hero-sub">Direct Line</span>
-                <a href="mailto:pratyushkumarswain01@gmail.com" class="contact-trigger">LET'S BUILD →</a>
-                <div style="margin-top: 60px; display: flex; gap: 30px; justify-content: center;">
-                    <span class="tag">Twitter</span><span class="tag">LinkedIn</span><span class="tag">GitHub</span>
-                </div>
+        </div>
+
+        <div class="contact reveal" id="contact">
+            <p style="font-size: 0.55rem; font-weight: 800; color: var(--accent); letter-spacing: 1.5px; text-transform: uppercase;">Direct Line</p>
+            <h2 style="font-family: 'Space Grotesk'; font-size: 1.4rem; margin: 8px 0;">Architect the future.</h2>
+            <div class="socials">
+                <a href="#" class="social-btn">LINKEDIN</a>
+                <a href="#" class="social-btn">INSTAGRAM</a>
+                <a href="#" class="social-btn">UPSCHUB</a>
             </div>
-        </section>
-
+            <a href="mailto:pratyushkumarswain01@gmail.com" class="cta-mail">Get in Touch <i data-lucide="send" size="12"></i></a>
+        </div>
     </div>
 
-    <footer style="padding: 40px 50px; display: flex; justify-content: space-between; border-top: 1px solid var(--border); font-weight: 700; font-size: 0.7rem; letter-spacing: 2px;">
-        <span>PRATYUSH SWAIN © 2026</span>
-        <span>FOUNDER OF UPSCHUB</span>
+    <footer>
+        <span>2026 // PS</span>
+        <span>PRECISION DESIGN</span>
     </footer>
 
     <script>
-        // 1. LIQUID CURSOR ENGINE (Optimized)
-        const canvas = document.getElementById('cursor-canvas');
-        const ctx = canvas.getContext('2d');
-        const dot = document.querySelector('.cursor-dot');
-        let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
-        let lastMouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-            gsap.to(dot, { x: mouse.x - 3, y: mouse.y - 3, duration: 0.1 });
-        });
-
-        function render() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            const dx = mouse.x - lastMouse.x;
-            const dy = mouse.y - lastMouse.y;
-            const speed = Math.sqrt(dx*dx + dy*dy);
-            
-            ctx.beginPath();
-            ctx.arc(mouse.x, mouse.y, 12 + speed/1.5, 0, Math.PI * 2);
-            ctx.strokeStyle = 'rgba(0,0,0,0.15)';
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-
-            lastMouse.x += (mouse.x - lastMouse.x) * 0.15;
-            lastMouse.y += (mouse.y - lastMouse.y) * 0.15;
-
-            requestAnimationFrame(render);
-        }
-        render();
-
-        // 2. SMOOTH LOAD & REVEALS
-        window.addEventListener('load', () => {
-            gsap.to("#loader", { yPercent: -100, duration: 1.2, ease: "expo.inOut", delay: 1 });
-            gsap.to(".reveal", { opacity: 1, y: 0, duration: 1.2, stagger: 0.2, ease: "power4.out", delay: 1.5 });
-        });
-
-        // 3. HORIZONTAL SCROLL (GSAP + ScrollTrigger)
-        gsap.registerPlugin(ScrollTrigger);
-        
-        let sections = gsap.utils.toArray(".panel");
-        let horizontalScroll = gsap.to(sections, {
-            xPercent: -100 * (sections.length - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".horizontal-wrapper",
-                pin: true,
-                scrub: 1,
-                end: () => "+=" + window.innerWidth * 3,
-                invalidateOnRefresh: true
+        // Micro-Loader Script
+        let fill = document.querySelector('.loader-fill');
+        let load = 0;
+        let int = setInterval(() => {
+            load += Math.random() * 15;
+            if(load > 100) load = 100;
+            fill.style.width = load + '%';
+            if(load >= 100) {
+                clearInterval(int);
+                setTimeout(() => {
+                    gsap.to("#preloader", { opacity: 0, duration: 0.3, onComplete: () => {
+                        document.getElementById('preloader').style.display = 'none';
+                        init();
+                    }});
+                }, 200);
             }
-        });
+        }, 50);
 
-        // 4. MAGNETIC LOGIC
-        const magnets = document.querySelectorAll('.magnetic');
-        magnets.forEach(m => {
-            m.addEventListener('mousemove', (e) => {
-                const rect = m.getBoundingClientRect();
-                const x = (e.clientX - rect.left - rect.width/2) * 0.4;
-                const y = (e.clientY - rect.top - rect.height/2) * 0.4;
-                gsap.to(m, { x: x, y: y, duration: 0.3 });
-                gsap.to(dot, { scale: 4, background: "var(--accent)" });
+        function init() {
+            lucide.createIcons();
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Staggered Entrance
+            gsap.utils.toArray(".reveal").forEach((el) => {
+                gsap.from(el, { 
+                    y: 15, 
+                    opacity: 0, 
+                    duration: 0.6, 
+                    ease: "power2.out", 
+                    scrollTrigger: { 
+                        trigger: el, 
+                        start: "top 92%" 
+                    }
+                });
             });
-            m.addEventListener('mouseleave', () => {
-                gsap.to(m, { x: 0, y: 0, duration: 0.3 });
-                gsap.to(dot, { scale: 1, background: "var(--text)" });
-            });
-        });
-
-        // Initialize Icons
-        lucide.createIcons();
+        }
     </script>
 </body>
 </html>
