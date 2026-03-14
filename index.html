@@ -762,6 +762,8 @@ Currently based in Berhampur<br>
 Founder — UPSChub
 </p>
 
+
+
     <!-- ══ INDIA SKYLINE IMAGE — CORRECT PLACE ══ -->
     <div style="width:100%;max-width:520px;margin:16px 0 20px;opacity:0;animation:fadeUp .8s ease forwards 1.35s;">
       <img 
@@ -783,140 +785,91 @@ Pratyush Kumar Swain — founder of UPSChub, passionate about education, technol
 </div>
 
   <!-- REALISTIC ASHOKA CHAKRA - HERO -->
-  <div class="hero-right">
-    <div class="chakra-3d-wrap">
-      <svg class="chakra-canvas" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="hg-rim" cx="42%" cy="35%" r="65%">
-            <stop offset="0%" stop-color="#6090F8"/>
-            <stop offset="30%" stop-color="#1650D0"/>
-            <stop offset="70%" stop-color="#0B37A0"/>
-            <stop offset="100%" stop-color="#051260"/>
-          </radialGradient>
-          <radialGradient id="hg-hub" cx="38%" cy="32%" r="70%">
-            <stop offset="0%" stop-color="#7AAAF8"/>
-            <stop offset="35%" stop-color="#1650D0"/>
-            <stop offset="80%" stop-color="#0B37A0"/>
-            <stop offset="100%" stop-color="#040E60"/>
-          </radialGradient>
-          <radialGradient id="hg-spoke" cx="50%" cy="20%" r="85%">
-            <stop offset="0%" stop-color="#5A88F0"/>
-            <stop offset="60%" stop-color="#0E42C0"/>
-            <stop offset="100%" stop-color="#07208A"/>
-          </radialGradient>
-          <filter id="shadow3d" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="3" dy="6" stdDeviation="6" flood-color="#020A50" flood-opacity="0.5"/>
-            <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#0B37A0" flood-opacity="0.3"/>
-          </filter>
-          <filter id="glowf">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-          </filter>
-          <!-- Rim bevel gradient -->
-          <linearGradient id="rim-bevel" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#7AAAF8"/>
-            <stop offset="25%" stop-color="#1650D0"/>
-            <stop offset="50%" stop-color="#0B37A0"/>
-            <stop offset="75%" stop-color="#1650D0"/>
-            <stop offset="100%" stop-color="#6090F8"/>
-          </linearGradient>
-        </defs>
+<!-- SIMPLE ASHOKA CHAKRA - HERO -->
+<!-- HERO RIGHT : ASHOKA CHAKRA -->
+<!-- HERO RIGHT : SMALL FADED ASHOKA CHAKRA -->
+<div class="hero-right">
+  <div class="chakra-wrap">
 
-      
+<svg class="chakra-canvas" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="opacity:.22">
 
-        <!-- Outer glow ring -->
-        <circle cx="260" cy="260" r="248" fill="none" stroke="rgba(74,125,232,0.12)" stroke-width="20"/>
+<defs>
 
-        <!-- OUTER RIM — 3D bevel effect using two rings -->
-        <circle cx="260" cy="260" r="238" fill="none" stroke="#6090F8" stroke-width="1.5" opacity="0.5"/>
-        <circle cx="260" cy="260" r="232" fill="url(#hg-rim)" stroke="none"/>
-        <circle cx="260" cy="260" r="232" fill="none" stroke="url(#rim-bevel)" stroke-width="18"/>
-        <!-- Inner edge of rim -->
-        <circle cx="260" cy="260" r="222" fill="none" stroke="#0B37A0" stroke-width="3" opacity="0.6"/>
-        <circle cx="260" cy="260" r="218" fill="none" stroke="#4A7DE8" stroke-width="1" opacity="0.35"/>
-        <!-- Rim highlight arc (top-left catches light) -->
-        <path d="M 120,118 A 200,200 0 0,1 398,112" fill="none" stroke="rgba(200,230,255,0.2)" stroke-width="12" stroke-linecap="round"/>
+<radialGradient id="hub-grad" cx="40%" cy="35%" r="65%">
+<stop offset="0%" stop-color="#5A8AF0"/>
+<stop offset="40%" stop-color="#1650D0"/>
+<stop offset="100%" stop-color="#061880"/>
+</radialGradient>
 
-        <!-- 24 SPOKES — each is a proper tapered shape -->
-        <!-- Spoke angle: i * 15°, from hub edge (r=72) to rim inner edge (r=218) -->
-        <!-- We compute using JS-like approach: 24 spokes at 15° intervals -->
-        <!-- Width: 5px at hub, tapering to 3px at rim -->
-        <g filter="url(#shadow3d)">
-          <!-- Using rect rotated for each spoke, centered at 260,260 -->
-          <g transform="translate(260,260)">
-            <!-- Spoke 1: 270° = top -->
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(0)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(15)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(30)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(45)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(60)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(75)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(90)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(105)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(120)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(135)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(150)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(165)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(180)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(195)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(210)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(225)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(240)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(255)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(270)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(285)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(300)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(315)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(330)"/>
-            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(345)"/>
-          </g>
-        </g>
+<linearGradient id="rim-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#4A7DE8"/>
+<stop offset="50%" stop-color="#0B37A0"/>
+<stop offset="100%" stop-color="#4A7DE8"/>
+</linearGradient>
 
-        <!-- 24 BEAD DOTS at rim -->
-        <g fill="#4A7DE8" filter="url(#glowf)">
-          <g transform="translate(260,260)">
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(0)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(15)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(30)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(45)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(60)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(75)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(90)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(105)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(120)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(135)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(150)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(165)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(180)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(195)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(210)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(225)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(240)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(255)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(270)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(285)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(300)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(315)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(330)"/>
-            <circle cx="0" cy="-230" r="7.5" transform="rotate(345)"/>
-            <!-- Bead highlights -->
-            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(0)"/>
-            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(90)"/>
-            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(180)"/>
-            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(270)"/>
-          </g>
-        </g>
+<radialGradient id="spoke-grad" cx="50%" cy="0%" r="100%">
+<stop offset="0%" stop-color="#4A7DE8"/>
+<stop offset="50%" stop-color="#0B37A0"/>
+<stop offset="100%" stop-color="#061880"/>
+</radialGradient>
 
-        <!-- CENTRE HUB — 3D sphere effect -->
-        <circle cx="260" cy="260" r="68" fill="url(#hg-hub)"/>
-        <circle cx="260" cy="260" r="68" fill="none" stroke="#4A7DE8" stroke-width="3" opacity="0.6"/>
-        <circle cx="260" cy="260" r="60" fill="none" stroke="#1650D0" stroke-width="1.5" opacity="0.4"/>
-        <!-- Hub 3D highlight (sphere illusion) -->
-        <ellipse cx="246" cy="244" rx="22" ry="16" fill="rgba(200,230,255,0.2)" transform="rotate(-15,246,244)"/>
-        <circle cx="242" cy="240" r="6" fill="rgba(200,230,255,0.15)"/>
-      </svg>
-    </div>
+</defs>
+
+<!-- OUTER RIM (smaller) -->
+<circle cx="200" cy="200" r="120" fill="none" stroke="url(#rim-stroke)" stroke-width="10"/>
+<circle cx="200" cy="200" r="108" fill="none" stroke="#0B37A0" stroke-width="1.5" opacity=".35"/>
+
+<!-- HUB -->
+<circle cx="200" cy="200" r="35" fill="url(#hub-grad)" opacity=".9"/>
+<circle cx="200" cy="200" r="35" fill="none" stroke="#4A7DE8" stroke-width="1.5" opacity=".5"/>
+
+<!-- SPOKES (shorter) -->
+<g fill="url(#spoke-grad)">
+
+<rect x="198" y="92" width="4" height="80" rx="2"/>
+
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(15 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(30 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(45 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(60 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(75 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(90 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(105 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(120 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(135 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(150 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(165 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(180 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(195 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(210 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(225 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(240 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(255 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(270 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(285 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(300 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(315 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(330 200 200)"/>
+<rect x="198" y="92" width="4" height="80" rx="2" transform="rotate(345 200 200)"/>
+
+</g>
+
+<!-- DOTS -->
+<g fill="#4A7DE8" opacity=".6">
+<circle cx="200" cy="80" r="4"/>
+<circle cx="200" cy="80" r="4" transform="rotate(45 200 200)"/>
+<circle cx="200" cy="80" r="4" transform="rotate(90 200 200)"/>
+<circle cx="200" cy="80" r="4" transform="rotate(135 200 200)"/>
+<circle cx="200" cy="80" r="4" transform="rotate(180 200 200)"/>
+<circle cx="200" cy="80" r="4" transform="rotate(225 200 200)"/>
+<circle cx="200" cy="80" r="4" transform="rotate(270 200 200)"/>
+<circle cx="200" cy="80" r="4" transform="rotate(315 200 200)"/>
+</g>
+
+</svg>
+
   </div>
+</div>
 
 
 </section>
