@@ -1,351 +1,1209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratyush Swain | pratyushswain.in</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratyush Swain — Founder · Educator · AI Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@200;300;400;500;600&family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --saffron:#FF6600;--saffron2:#FF8C00;--saffron-deep:#E65000;
+  --navy:#002C6E;--navy2:#001A44;--navy3:#000D2A;
+  --ig:#138808;
+  --gold:#C8940A;--gold2:#E8A800;--gold3:#F7D060;--gold4:#FFF0A0;
+  --chakra:#0B37A0;--chakra2:#1650D0;--chakra3:#4A7DE8;
+  --ivory:#FEFCF4;--cream:#F7F2E0;--cream2:#EDE5C8;--parchment:#D9CBA8;
+  --ink:#140E00;--ink2:#2A1E00;--ink3:#6B5520;
+  --lotus-r:#D63A5A;--lotus-p:#F06080;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
 
-    <style>
-        :root {
-            --bg: #fafafa;
-            --card-bg: #ffffff;
-            --text: #0f172a;
-            --accent: #4f46e5;
-            --subtext: #64748b;
-            --border: rgba(0, 0, 0, 0.05);
-            /* Small button/font sizing constants */
-            --btn-pad: 6px 14px;
-            --radius: 8px;
-        }
+/* ═══ CURSOR ═══ */
+#cur{position:fixed;inset:0;z-index:9999;pointer-events:none}
+#cd{position:absolute;width:8px;height:8px;background:var(--saffron);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--saffron),0 0 20px rgba(255,102,0,.4)}
+#cr{position:absolute;width:36px;height:36px;border:1.5px solid var(--saffron);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body.hov #cr{width:56px;height:56px;border-color:var(--gold2)}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-        
-        html { scroll-behavior: smooth; font-size: 16px; } /* Base font slightly smaller for pro look */
+/* ═══ LOADER ═══ */
+#loader{
+  position:fixed;inset:0;z-index:10000;
+  background:radial-gradient(ellipse at center,#001840 0%,#000D2A 70%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+  transition:opacity 1.2s ease,visibility 1.2s ease;
+}
+#loader.out{opacity:0;visibility:hidden}
+.l-ring-outer{position:relative;width:200px;height:200px;margin-bottom:28px}
+.l-glow{
+  position:absolute;inset:-20px;border-radius:50%;
+  background:radial-gradient(circle,rgba(11,55,160,.4) 0%,transparent 70%);
+  animation:glowPulse 2s ease-in-out infinite;
+}
+@keyframes glowPulse{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.2);opacity:1}}
+.l-spin{position:absolute;inset:0;animation:spinFull 6s linear infinite}
+.l-title{font-family:'Cinzel',serif;font-size:1.9rem;font-weight:600;color:var(--gold3);letter-spacing:.28em;opacity:0;animation:fadeUp .8s ease forwards .5s;text-align:center}
+.l-smj{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.8rem;color:var(--saffron2);letter-spacing:.1em;margin-top:10px;opacity:0;animation:fadeUp .7s ease forwards .8s}
+.l-eng{font-size:.65rem;font-weight:300;letter-spacing:.38em;text-transform:uppercase;color:rgba(247,208,96,.4);margin-top:6px;opacity:0;animation:fadeUp .6s ease forwards 1s}
+.l-bar{width:220px;height:2px;background:rgba(247,208,96,.1);margin-top:28px;overflow:hidden;border-radius:2px;opacity:0;animation:fadeUp .5s ease forwards 1.1s}
+.l-bar-fill{height:100%;background:linear-gradient(to right,var(--saffron),var(--gold3));width:0;animation:barFill 2s ease forwards 1.2s;box-shadow:0 0 10px var(--gold3)}
+@keyframes barFill{to{width:100%}}
+@keyframes spinFull{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            line-height: 1.5; 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 64px;
+  transition:padding .4s,background .4s,box-shadow .4s;
+}
+nav.stuck{padding:14px 64px;background:rgba(254,252,244,.96);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(200,148,10,.15)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-cw{width:34px;height:34px;flex-shrink:0}
+.nav-cw-spin{animation:spinFull 14s linear infinite}
+.nav-name{font-family:'Cinzel',serif;font-size:1.05rem;font-weight:600;color:var(--navy);letter-spacing:.12em}
+.nav-name span{color:var(--saffron)}
+.nav-ul{display:flex;gap:32px;list-style:none}
+.nav-ul a{font-size:.68rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);text-decoration:none;transition:color .25s;position:relative}
+.nav-ul a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--saffron);transition:width .3s;border-radius:2px}
+.nav-ul a:hover{color:var(--saffron)}
+.nav-ul a:hover::after{width:100%}
+.nav-btn{padding:10px 22px;background:var(--saffron);color:#fff;font-size:.68rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .25s,box-shadow .25s}
+.nav-btn:hover{background:var(--saffron2);box-shadow:0 4px 20px rgba(255,102,0,.35)}
 
-        /* --- MICROSCOPIC LOADER --- */
-        #preloader { position: fixed; inset: 0; background: var(--bg); z-index: 10000; display: flex; justify-content: center; align-items: center; }
-        .loader-bar { width: 100px; height: 1px; background: var(--border); overflow: hidden; }
-        .loader-fill { height: 100%; width: 0%; background: var(--accent); transition: width 0.3s ease; }
+/* ═══ INDIA FLAG STRIP ═══ */
+.flag-strip{display:flex;width:100%;height:5px}
+.flag-s{flex:1;background:var(--saffron)}
+.flag-w{flex:1;background:#fff;border-top:1px solid rgba(0,0,0,.05);border-bottom:1px solid rgba(0,0,0,.05)}
+.flag-g{flex:1;background:var(--ig)}
 
-        /* --- PRECISION NAV --- */
-        nav { 
-            position: fixed; top: 0; width: 100%; 
-            padding: 10px 5%; 
-            display: flex; justify-content: space-between; align-items: center; 
-            z-index: 1000; backdrop-filter: blur(12px); 
-            border-bottom: 1px solid var(--border); 
-            background: rgba(250, 250, 250, 0.7); 
-        }
-        .logo { font-family: 'Space Grotesk'; font-weight: 700; font-size: 0.85rem; text-decoration: none; color: var(--text); letter-spacing: -0.5px; }
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .nav-links a { text-decoration: none; color: var(--subtext); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; }
-        .nav-links a:hover { color: var(--accent); }
-        .nav-cta { 
-            background: var(--text); color: #fff !important; 
-            padding: 5px 12px; border-radius: 6px; font-size: 0.65rem !important; 
-        }
+/* ═══ HERO ═══ */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  background:linear-gradient(160deg,var(--ivory) 0%,var(--cream) 45%,#EDE8D5 100%);
+  display:flex;align-items:center;
+}
+/* Intricate Pattachitra border pattern */
+.hero-patta-top{position:absolute;top:5px;left:0;right:0;height:20px;z-index:10;overflow:hidden}
+.hero-patta-bot{position:absolute;bottom:44px;left:0;right:0;height:20px;z-index:10;overflow:hidden}
+.patta-svg{width:100%;height:100%}
 
-        /* --- COMPACT HERO --- */
-        header { 
-            padding: 120px 5% 40px; 
-            max-width: 900px; margin: 0 auto; 
-        }
-        .status { 
-            display: inline-flex; align-items: center; gap: 6px; 
-            padding: 3px 10px; background: #fff; border: 1px solid var(--border); 
-            border-radius: 100px; color: var(--subtext); font-size: 0.55rem; 
-            font-weight: 700; margin-bottom: 20px; 
-        }
-        .dot { width: 4px; height: 4px; background: #10b981; border-radius: 50%; box-shadow: 0 0 5px #10b981; }
-        
-        h1 { 
-            font-family: 'Space Grotesk'; 
-            font-size: clamp(1.8rem, 6vw, 2.8rem); 
-            line-height: 1; letter-spacing: -1.5px; margin-bottom: 15px; 
-        }
-        .hero-sub { font-size: 0.85rem; color: var(--subtext); max-width: 450px; line-height: 1.6; }
+/* Subtle marble texture overlay */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 70% 50%, rgba(200,148,10,.07) 0%,transparent 70%),
+    radial-gradient(ellipse 40% 60% at 20% 30%, rgba(255,102,0,.04) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-content{
+  position:relative;z-index:10;
+  padding:140px 72px 100px;
+  max-width:640px;
+}
+.h-smj{
+  font-family:'Tiro Devanagari Sanskrit',serif;
+  font-size:2rem;color:var(--saffron);letter-spacing:.12em;
+  margin-bottom:4px;
+  opacity:0;animation:fadeUp .7s ease forwards .8s;
+  text-shadow:0 0 30px rgba(255,102,0,.25);
+}
+.h-smj-t{
+  font-size:.62rem;font-weight:300;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:36px;
+  opacity:0;animation:fadeUp .6s ease forwards 1s;
+}
+.h-tag{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:.62rem;font-weight:400;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--saffron);margin-bottom:24px;
+  opacity:0;animation:fadeUp .6s ease forwards 1.1s;
+}
+.h-tag::before{content:'';width:28px;height:2px;background:linear-gradient(to right,var(--saffron),var(--gold2));border-radius:1px}
+.h-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(4rem,8vw,8rem);
+  font-weight:300;line-height:.9;letter-spacing:-.02em;
+  color:var(--ink);
+  opacity:0;animation:fadeUp .9s ease forwards 1.2s;
+}
+.h-name em{font-style:italic;color:var(--saffron);display:block}
+.h-role{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.25rem;color:var(--ink3);margin:20px 0 28px;
+  opacity:0;animation:fadeUp .7s ease forwards 1.4s;
+}
+.h-desc{
+  font-size:.95rem;line-height:1.9;color:var(--ink3);max-width:520px;
+  opacity:0;animation:fadeUp .7s ease forwards 1.5s;
+}
+.h-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:44px;opacity:0;animation:fadeUp .7s ease forwards 1.7s}
+.btn-sf{
+  padding:14px 34px;background:linear-gradient(135deg,var(--saffron),var(--saffron2));
+  color:#fff;font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;border-radius:3px;
+  box-shadow:0 4px 20px rgba(255,102,0,.3);
+  transition:transform .2s,box-shadow .3s;display:inline-block;
+}
+.btn-sf:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(255,102,0,.45)}
+.btn-nv{
+  padding:14px 34px;border:1.5px solid var(--navy);color:var(--navy);
+  font-size:.7rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;transition:background .25s,color .25s,transform .2s;display:inline-block;border-radius:3px;
+}
+.btn-nv:hover{background:var(--navy);color:#fff;transform:translateY(-3px)}
+.h-loc{
+  display:flex;align-items:center;gap:10px;margin-top:36px;
+  font-size:.68rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);
+  opacity:0;animation:fadeUp .6s ease forwards 1.9s;
+}
+.loc-dot{width:8px;height:8px;background:var(--ig);border-radius:50%;animation:blnk 2s ease-in-out infinite;box-shadow:0 0 6px var(--ig)}
+@keyframes blnk{0%,100%{opacity:1}50%{opacity:.2}}
 
-        /* --- BENTO SYSTEM --- */
-        .container { padding: 0 5% 60px; max-width: 900px; margin: 0 auto; }
-        .bento { 
-            display: grid; 
-            grid-template-columns: repeat(6, 1fr); 
-            gap: 12px; 
-            grid-auto-rows: minmax(min-content, max-content);
-        }
-        .card { 
-            background: var(--card-bg); 
-            border: 1px solid var(--border); 
-            border-radius: var(--radius); 
-            padding: 20px; 
-            display: flex; flex-direction: column; 
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
-        
-        /* Grid Spans */
-        .card.wide { grid-column: span 4; }
-        .card.small { grid-column: span 2; }
-        .card.full { grid-column: span 6; }
+/* ═══ HERO RIGHT — 3D REALISTIC CHAKRA ═══ */
+.hero-right{
+  position:absolute;right:40px;top:50%;transform:translateY(-50%);
+  width:520px;height:520px;
+  opacity:0;animation:fadeUp 1.2s ease forwards 1.3s;
+  z-index:8;
+}
+.chakra-3d-wrap{
+  position:relative;width:100%;height:100%;
+  filter:drop-shadow(0 0 40px rgba(11,55,160,.25)) drop-shadow(0 0 80px rgba(11,55,160,.12));
+}
+/* Glow halo behind chakra */
+.chakra-3d-wrap::before{
+  content:'';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  width:80%;height:80%;border-radius:50%;
+  background:radial-gradient(circle,rgba(11,55,160,.18) 0%,rgba(11,55,160,.06) 50%,transparent 75%);
+  animation:glowPulse 3s ease-in-out infinite;
+}
+.chakra-canvas{
+  position:absolute;inset:0;
+  animation:spinFull 20s linear infinite;
+}
 
-        .icon-box { 
-            width: 28px; height: 28px; background: var(--bg); 
-            border-radius: 6px; display: flex; align-items: center; 
-            justify-content: center; margin-bottom: 12px; color: var(--accent); 
-        }
-        h3 { font-family: 'Space Grotesk'; font-size: 0.9rem; margin-bottom: 6px; }
-        p { color: var(--subtext); font-size: 0.75rem; line-height: 1.5; }
+/* ticker */
+.ticker{position:absolute;bottom:0;left:0;right:0;height:44px;background:var(--navy3);display:flex;align-items:center;overflow:hidden;z-index:20}
+.tick-t{display:flex;animation:tkr 26s linear infinite;white-space:nowrap}
+.tick-i{font-size:.62rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,208,96,.55);padding:0 28px;display:flex;align-items:center;gap:28px}
+.tick-i::after{content:'✦';color:var(--saffron);font-size:.45rem}
+@keyframes tkr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-        /* --- AI LIST --- */
-        .ai-list { margin-top: 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
-        .ai-item { display: flex; align-items: center; gap: 6px; font-size: 0.7rem; font-weight: 600; }
+/* ═══ INDIA FLAG MARQUEE ═══ */
+.mq-wrap{display:flex;flex-direction:column;overflow:hidden}
+.mq-row{padding:12px 0;overflow:hidden}
+.mq-row.s{background:var(--saffron)}
+.mq-row.w{background:var(--ivory);border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
+.mq-row.g{background:var(--ig)}
+.mq-t{display:flex;animation:tkr 20s linear infinite;white-space:nowrap}
+.mq-t.rev{animation:tkr2 20s linear infinite}
+@keyframes tkr2{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.mq-i{font-family:'Cinzel',serif;font-size:.95rem;letter-spacing:.15em;color:rgba(255,255,255,.92);padding:0 30px;display:flex;align-items:center;gap:30px}
+.mq-i::after{content:'❋';font-size:.7rem;opacity:.7}
+.mq-iw{font-size:.7rem;font-weight:300;letter-spacing:.22em;color:var(--ink3);padding:0 24px;display:flex;align-items:center;gap:24px}
+.mq-iw::after{content:'◉';color:var(--chakra);font-size:.5rem}
+.mq-iws{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:var(--chakra);padding:0 20px}
 
-        /* --- COMPACT CONTACT --- */
-        .contact { 
-            background: #fff; border: 1px solid var(--border); 
-            border-radius: var(--radius); padding: 35px 20px; 
-            text-align: center; margin-top: 40px; 
-        }
-        .socials { display: flex; justify-content: center; gap: 8px; margin: 15px 0; flex-wrap: wrap; }
-        .social-btn { 
-            padding: 5px 12px; background: var(--bg); border: 1px solid var(--border); 
-            border-radius: 5px; text-decoration: none; color: var(--text); 
-            font-size: 0.6rem; font-weight: 700; transition: 0.2s; 
-        }
-        .social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-        
-        .cta-mail { 
-            display: inline-flex; align-items: center; gap: 6px; 
-            padding: 8px 20px; background: var(--accent); color: #fff; 
-            text-decoration: none; border-radius: 6px; font-weight: 700; 
-            font-size: 0.75rem; margin-top: 10px;
-        }
+/* ═══ SECTION SHARED ═══ */
+.sw{max-width:1280px;margin:0 auto;padding:110px 72px}
+.sk{display:inline-flex;align-items:center;gap:12px;font-size:.62rem;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--saffron);margin-bottom:18px}
+.sk svg{width:16px;height:16px;animation:spinFull 8s linear infinite;flex-shrink:0}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,5vw,4.8rem);font-weight:300;line-height:1.06;color:var(--ink)}
+.st em{font-style:italic;color:var(--saffron)}
+.st strong{font-weight:600}
+.sb{font-size:.96rem;font-weight:300;line-height:1.95;color:var(--ink3)}
 
-        footer { 
-            padding: 40px 5%; display: flex; justify-content: space-between; 
-            font-size: 0.55rem; color: #94a3b8; font-weight: 700; 
-            text-transform: uppercase; letter-spacing: 1px;
-        }
+/* Decorative divider with real Konark wheel */
+.kdiv{
+  display:flex;align-items:center;gap:0;margin:0 72px;
+  position:relative;height:32px;
+}
+.kdl{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--parchment))}
+.kdr{flex:1;height:1px;background:linear-gradient(to left,transparent,var(--parchment))}
+.kdm{padding:0 28px;display:flex;align-items:center;gap:20px}
+.kd-cw{animation:spinFull 10s linear infinite;opacity:.5}
+.kd-lotus{font-size:1.2rem;animation:lotusFloat 5s ease-in-out infinite}
+@keyframes lotusFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 
-        /* --- SMART MOBILE OVERRIDES --- */
-        @media (max-width: 768px) {
-            .bento { grid-template-columns: 1fr; }
-            .card.wide, .card.small, .card.full { grid-column: span 1; }
-            .nav-links a:not(.nav-cta) { display: none; }
-            header { padding-top: 100px; }
-            .container { padding-bottom: 40px; }
-        }
+/* ═══ ABOUT ═══ */
+.ab-sec{background:var(--cream)}
+.ab-grid{display:grid;grid-template-columns:5fr 6fr;gap:80px;align-items:center}
+/* 3D portrait with temple arch */
+.ab-port{aspect-ratio:3/4;position:relative}
+.port-bg{
+  width:100%;height:100%;
+  background:linear-gradient(160deg,var(--cream2) 0%,var(--parchment) 100%);
+  border:2px solid var(--gold2);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:8px 8px 0 rgba(200,148,10,.15),inset 0 0 60px rgba(200,148,10,.05);
+}
+/* Temple arch keyhole */
+.port-arch{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:75%;height:68%;
+  border:2px solid rgba(200,148,10,.25);
+  border-bottom:none;
+  border-radius:50% 50% 0 0/60% 60% 0 0;
+}
+.port-arch2{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:68%;height:60%;
+  border:1px solid rgba(200,148,10,.12);
+  border-bottom:none;
+  border-radius:50% 50% 0 0/60% 60% 0 0;
+}
+.port-chakra-bg{
+  position:absolute;width:55%;height:55%;
+  opacity:.05;animation:spinFull 35s linear infinite;
+}
+.port-cont{position:relative;z-index:2;text-align:center}
+.port-lotus{font-size:3rem;display:block;margin-bottom:12px;animation:lotusFloat 3s ease-in-out infinite}
+.port-n1{font-family:'Cinzel',serif;font-size:2rem;font-weight:700;color:var(--navy);letter-spacing:.12em;line-height:1}
+.port-n2{font-family:'Cinzel',serif;font-size:2rem;font-weight:400;color:var(--navy);letter-spacing:.12em;margin-bottom:10px;line-height:1}
+.port-role{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--saffron);letter-spacing:.08em}
+.port-smj{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.3rem;color:var(--gold2);margin-top:12px;display:block}
+.pc{position:absolute;width:28px;height:28px;border-color:var(--gold2);border-style:solid;opacity:.55}
+.pc.tl{top:14px;left:14px;border-width:2px 0 0 2px}
+.pc.tr{top:14px;right:14px;border-width:2px 2px 0 0}
+.pc.bl{bottom:14px;left:14px;border-width:0 0 2px 2px}
+.pc.br{bottom:14px;right:14px;border-width:0 2px 2px 0}
+.port-patta-strip{
+  position:absolute;bottom:0;left:0;right:0;height:14px;overflow:hidden;
+}
 
-        @media (max-width: 480px) {
-            h1 { font-size: 2rem; }
-            .card { padding: 15px; }
-        }
-    </style>
+.ab-pull{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1.48rem;line-height:1.55;color:var(--ink2);
+  border-left:4px solid var(--saffron);padding-left:26px;margin:30px 0;
+}
+.ab-data{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(200,148,10,.15);margin:36px 0}
+.dc{
+  background:var(--cream);padding:22px 20px;position:relative;overflow:hidden;
+  transition:background .3s;cursor:default;
+}
+.dc::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--saffron),var(--gold2));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.dc:hover{background:rgba(255,102,0,.05)}
+.dc:hover::before{transform:scaleX(1)}
+.dc-n{font-family:'Cinzel',serif;font-size:2.4rem;font-weight:700;color:var(--saffron);line-height:1}
+.dc-l{font-size:.72rem;font-weight:400;color:var(--ink3);letter-spacing:.1em;margin-top:4px}
+
+/* ═══ EXPERTISE — DARK KONARK SECTION ═══ */
+.exp-sec{background:var(--navy2);position:relative;overflow:hidden}
+.exp-sec::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 85% 50%,rgba(11,55,160,.15) 0%,transparent 60%),
+             radial-gradient(ellipse 50% 80% at 15% 50%,rgba(255,102,0,.06) 0%,transparent 60%);
+}
+.exp-sec .sk{color:var(--gold3)}
+.exp-sec .st{color:rgba(254,252,244,.95)}
+.exp-sec .st em{color:var(--gold3)}
+/* Konark wheel large bg */
+.kw-bg{
+  position:absolute;right:-180px;top:50%;transform:translateY(-50%);
+  width:680px;height:680px;opacity:.055;
+  animation:spinFull 70s linear infinite;pointer-events:none;
+}
+.exp-list{margin-top:52px}
+.exp-row{
+  display:grid;grid-template-columns:64px 1fr 1fr auto;
+  gap:36px;align-items:center;
+  padding:30px 0;
+  border-bottom:1px solid rgba(247,208,96,.08);
+  position:relative;cursor:default;
+  transition:padding-left .3s;
+}
+.exp-row:first-child{border-top:1px solid rgba(247,208,96,.08)}
+.exp-row:hover{padding-left:10px}
+.exp-row::before{
+  content:'';position:absolute;left:-72px;right:-72px;top:0;bottom:0;
+  background:linear-gradient(90deg,rgba(255,102,0,.07) 0%,transparent 100%);
+  opacity:0;transition:opacity .3s;
+}
+.exp-row:hover::before{opacity:1}
+.exp-num{font-family:'Cinzel',serif;font-size:2.2rem;font-weight:700;color:rgba(247,208,96,.1);line-height:1;transition:color .3s}
+.exp-row:hover .exp-num{color:var(--gold3)}
+.exp-ti{font-family:'Cormorant Garamond',serif;font-size:1.38rem;font-weight:600;color:rgba(254,252,244,.95)}
+.exp-de{font-size:.86rem;line-height:1.8;color:rgba(254,252,244,.38)}
+.exp-tg{font-size:.58rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--gold3);border:1px solid rgba(200,148,10,.28);padding:6px 14px;white-space:nowrap;border-radius:2px}
+
+/* ═══ AI SECTION ═══ */
+.ai-sec{background:var(--ivory)}
+.ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--cream2);margin-top:56px}
+.ai-card{
+  background:var(--ivory);padding:44px 34px;
+  position:relative;overflow:hidden;transition:background .3s,transform .3s;cursor:default;
+}
+.ai-card:hover{background:#FFF9EC;transform:translateY(-5px);z-index:2;box-shadow:0 16px 40px rgba(200,148,10,.12)}
+.ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--saffron),var(--gold2));transform:scaleX(0);transform-origin:left;transition:transform .45s}
+.ai-card:hover::before{transform:scaleX(1)}
+.ai-cn{font-family:'Cinzel',serif;font-size:3.2rem;font-weight:700;color:rgba(200,148,10,.07);line-height:1;margin-bottom:-6px}
+.ai-ic{font-size:1.9rem;margin-bottom:14px}
+.ai-ti{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-weight:600;color:var(--ink);margin-bottom:12px}
+.ai-bo{font-size:.85rem;line-height:1.85;color:var(--ink3)}
+.ai-tg{display:inline-block;margin-top:18px;font-size:.58rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--saffron);background:rgba(255,102,0,.07);padding:5px 13px;border-radius:100px;border:1px solid rgba(255,102,0,.18)}
+
+/* ═══ SKILLS ═══ */
+.sk-sec{background:var(--cream)}
+.sk-lay{display:grid;grid-template-columns:1fr 2fr;gap:96px;margin-top:52px}
+.sk-txt{font-size:.93rem;line-height:1.9;color:var(--ink3);margin-bottom:36px}
+.pills{display:flex;flex-wrap:wrap;gap:9px}
+.pill{padding:7px 17px;background:var(--ivory);border:1px solid rgba(200,148,10,.22);font-size:.68rem;font-weight:400;letter-spacing:.1em;color:var(--ink2);transition:background .25s,border-color .25s,color .25s;border-radius:2px}
+.pill:hover{background:var(--saffron);color:#fff;border-color:var(--saffron)}
+.skbar{margin-bottom:26px}
+.skh{display:flex;justify-content:space-between;margin-bottom:9px}
+.sknm{font-size:.88rem;font-weight:400;color:var(--ink2)}
+.skpc{font-size:.76rem;font-weight:400;color:var(--saffron)}
+.sktr{width:100%;height:4px;background:var(--cream2);border-radius:2px;position:relative}
+.skfi{height:100%;background:linear-gradient(to right,var(--saffron-deep),var(--gold2));width:0;transition:width 1.5s cubic-bezier(.4,0,.2,1);border-radius:2px;position:relative}
+.skfi::after{content:'';position:absolute;right:-5px;top:-5px;width:14px;height:14px;border-radius:50%;background:var(--gold2);border:3px solid var(--cream);box-shadow:0 0 10px var(--gold2)}
+
+/* ═══ SATYAMEVA JAYATE FULL BANNER ═══ */
+.smj-sec{
+  background:radial-gradient(ellipse at center,#001840 0%,#000D2A 80%);
+  padding:100px 72px;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;
+}
+.smj-ring1,.smj-ring2,.smj-ring3{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid rgba(11,55,160,.2);
+  animation:ringGlow 6s ease-in-out infinite;pointer-events:none;
+}
+.smj-ring1{width:460px;height:460px}
+.smj-ring2{width:680px;height:680px;animation-delay:2s}
+.smj-ring3{width:900px;height:900px;animation-delay:4s}
+@keyframes ringGlow{0%,100%{opacity:.2;transform:translate(-50%,-50%) scale(1)}50%{opacity:.55;transform:translate(-50%,-50%) scale(1.03)}}
+.smj-chakra-big{
+  width:180px;height:180px;
+  margin-bottom:28px;
+  position:relative;z-index:2;
+  filter:drop-shadow(0 0 30px rgba(11,55,160,.4)) drop-shadow(0 0 60px rgba(11,55,160,.2));
+}
+.smj-spin{animation:spinFull 12s linear infinite}
+.smj-dv{
+  font-family:'Tiro Devanagari Sanskrit',serif;
+  font-size:clamp(2.5rem,6vw,5rem);
+  color:var(--gold3);letter-spacing:.18em;
+  position:relative;z-index:2;
+  text-shadow:0 0 60px rgba(247,208,96,.4),0 0 120px rgba(247,208,96,.15);
+  margin-bottom:12px;
+}
+.smj-en{
+  font-family:'Cinzel',serif;font-size:clamp(.85rem,2vw,1.3rem);
+  font-weight:400;letter-spacing:.45em;color:rgba(247,208,96,.55);
+  text-transform:uppercase;position:relative;z-index:2;margin-bottom:16px;
+}
+.smj-sub{
+  font-size:.82rem;font-weight:300;color:rgba(254,252,244,.3);
+  letter-spacing:.1em;position:relative;z-index:2;max-width:600px;line-height:1.8;
+}
+.smj-tricolour{
+  display:flex;gap:0;margin-top:40px;position:relative;z-index:2;
+}
+.smj-tc{
+  width:48px;height:6px;border-radius:3px;
+}
+.smj-tc.s{background:var(--saffron);margin-right:4px}
+.smj-tc.w{background:rgba(254,252,244,.6);margin-right:4px}
+.smj-tc.g{background:var(--ig)}
+
+/* ═══ VISION ═══ */
+.vs-sec{
+  position:relative;overflow:hidden;
+  background:linear-gradient(150deg,rgba(255,246,228,1) 0%,rgba(255,240,200,1) 50%,rgba(254,252,244,1) 100%);
+  padding:120px 72px;
+}
+.vs-bg-txt{
+  position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+  font-family:'Cinzel',serif;font-size:26vw;font-weight:700;
+  color:rgba(200,148,10,.04);line-height:1;user-select:none;pointer-events:none;white-space:nowrap;
+}
+.vs-in{max-width:1280px;margin:0 auto;position:relative;z-index:2}
+.vs-sk{display:flex;align-items:center;gap:12px;font-size:.62rem;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--saffron);margin-bottom:20px}
+.vs-sk::before{content:'❋';color:var(--saffron)}
+.vs-big{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,7vw,7rem);font-weight:300;line-height:.92;color:var(--ink);margin-bottom:36px}
+.vs-big em{font-style:italic;color:var(--saffron)}
+.vs-q{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.1rem,2.5vw,1.72rem);line-height:1.65;color:var(--ink2);max-width:860px;margin-bottom:52px;border-left:5px solid var(--saffron);padding-left:30px}
+.vs-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.vc{background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:38px 30px;border:1px solid rgba(200,148,10,.18);border-top:4px solid var(--saffron);transition:transform .3s,box-shadow .3s}
+.vc:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(200,148,10,.14)}
+.vc-ic{font-size:1.9rem;margin-bottom:14px}
+.vc-ti{font-family:'Cormorant Garamond',serif;font-size:1.22rem;font-weight:600;color:var(--ink);margin-bottom:10px}
+.vc-bo{font-size:.86rem;line-height:1.8;color:var(--ink3)}
+
+/* ═══ TIMELINE ═══ */
+.tl-sec{background:var(--ivory)}
+.tl{margin-top:52px;position:relative}
+.tl::before{content:'';position:absolute;left:108px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--saffron) 20%,var(--gold2) 80%,transparent)}
+.tl-row{display:grid;grid-template-columns:108px 1fr;gap:50px;padding-bottom:50px;position:relative}
+.tl-row::before{
+  content:'';position:absolute;left:104px;top:8px;
+  width:10px;height:10px;background:var(--ivory);
+  border:2px solid var(--saffron);border-radius:50%;z-index:2;
+  transition:background .3s,box-shadow .3s;
+}
+.tl-row:hover::before{background:var(--saffron);box-shadow:0 0 12px rgba(255,102,0,.5)}
+.tl-yr{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--saffron);text-align:right;padding-top:5px;letter-spacing:.08em}
+.tl-ti{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-weight:600;color:var(--ink);margin-bottom:8px}
+.tl-tx{font-size:.87rem;line-height:1.85;color:var(--ink3)}
+
+/* ═══ HERITAGE BAND ═══ */
+.heritage-band{
+  background:var(--cream2);
+  padding:60px 72px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  background:linear-gradient(135deg,var(--cream2),var(--parchment));
+}
+.hb-item{
+  padding:40px 28px;text-align:center;
+  border-right:1px solid rgba(200,148,10,.18);
+  transition:background .3s;
+}
+.hb-item:last-child{border-right:none}
+.hb-item:hover{background:rgba(255,102,0,.04)}
+.hb-icon{font-size:2.4rem;margin-bottom:14px;display:block;animation:lotusFloat 4s ease-in-out infinite}
+.hb-ti{font-family:'Cinzel',serif;font-size:.85rem;font-weight:600;color:var(--navy);letter-spacing:.1em;margin-bottom:8px}
+.hb-tx{font-size:.78rem;line-height:1.7;color:var(--ink3)}
+
+/* ═══ CONTACT ═══ */
+.ct-sec{background:var(--navy2);position:relative;overflow:hidden}
+.ct-sec::after{content:'';position:absolute;bottom:0;left:0;right:0;height:5px;background:linear-gradient(to right,var(--saffron) 33.3%,#fff 33.3%,#fff 66.6%,var(--ig) 66.6%)}
+.ct-sec .sk{color:var(--gold3)}
+.ct-sec .st{color:rgba(254,252,244,.95)}
+.ct-sec .st em{color:var(--gold3)}
+.ct-kw{position:absolute;right:-100px;top:50%;transform:translateY(-50%);width:500px;height:500px;opacity:.04;animation:spinFull 50s linear infinite reverse;pointer-events:none}
+.ct-lay{display:grid;grid-template-columns:1fr 1fr;gap:72px;margin-top:52px;position:relative;z-index:2}
+.ct-intro{font-size:.94rem;line-height:1.9;color:rgba(254,252,244,.42);margin-bottom:32px}
+.ct-smj{font-family:'Tiro Devanagari Sanskrit',serif;font-size:1.4rem;color:rgba(247,208,96,.35);margin-bottom:32px;letter-spacing:.1em}
+.cls{display:flex;flex-direction:column;gap:2px}
+.cl{display:flex;align-items:center;gap:18px;padding:18px 0;text-decoration:none;color:rgba(254,252,244,.82);border-bottom:1px solid rgba(247,208,96,.08);transition:padding-left .3s;position:relative;overflow:hidden}
+.cl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(255,102,0,.1);transition:width .3s}
+.cl:hover{padding-left:12px}
+.cl:hover::before{width:100%}
+.cl-ic{font-size:1.25rem;position:relative;z-index:1}
+.cl-w{flex:1;position:relative;z-index:1}
+.cl-lb{font-size:.58rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);margin-bottom:3px}
+.cl-vl{font-size:.9rem;font-weight:300}
+.cl-ar{color:var(--saffron);opacity:0;transition:opacity .3s,transform .3s}
+.cl:hover .cl-ar{opacity:1;transform:translateX(4px)}
+.ct-form{display:flex;flex-direction:column;gap:17px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg label{font-size:.58rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,208,96,.3)}
+.fg input,.fg textarea{background:rgba(254,252,244,.04);border:1px solid rgba(247,208,96,.12);padding:13px 16px;color:rgba(254,252,244,.88);font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:300;outline:none;transition:border-color .25s,background .25s;resize:none;border-radius:2px}
+.fg input:focus,.fg textarea:focus{border-color:rgba(255,102,0,.45);background:rgba(255,102,0,.04)}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(254,252,244,.17)}
+.fg textarea{min-height:100px}
+.btn-send{padding:13px 34px;background:linear-gradient(135deg,var(--saffron),var(--saffron2));color:#fff;font-family:'Outfit',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:none;width:fit-content;border-radius:3px;box-shadow:0 4px 16px rgba(255,102,0,.3);transition:transform .2s,box-shadow .2s}
+.btn-send:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,102,0,.45)}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--navy3);padding:36px 72px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.f-brand{display:flex;align-items:center;gap:10px;font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:rgba(254,252,244,.88);letter-spacing:.12em}
+.f-cw{width:28px;height:28px;animation:spinFull 12s linear infinite}
+.f-smj{font-family:'Tiro Devanagari Sanskrit',serif;font-size:.95rem;color:rgba(247,208,96,.4)}
+.f-copy{font-size:.66rem;font-weight:300;color:rgba(254,252,244,.25);letter-spacing:.08em}
+.f-links{display:flex;gap:22px}
+.f-links a{font-size:.6rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:rgba(254,252,244,.25);text-decoration:none;transition:color .25s}
+.f-links a:hover{color:var(--saffron)}
+
+/* ═══ REVEAL ═══ */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.rv.v{opacity:1;transform:none}
+.rvl{opacity:0;transform:translateX(-28px);transition:opacity .8s ease,transform .8s ease}
+.rvl.v{opacity:1;transform:none}
+.rvr{opacity:0;transform:translateX(28px);transition:opacity .8s ease,transform .8s ease}
+.rvr.v{opacity:1;transform:none}
+
+@media(max-width:960px){
+  nav{padding:16px 24px}
+  .nav-ul,.nav-btn{display:none}
+  .hero-content{padding:130px 24px 80px}
+  .hero-right{display:none}
+  .sw{padding:76px 24px}
+  .kdiv{margin:0 24px}
+  .ab-grid,.ct-lay,.sk-lay{grid-template-columns:1fr;gap:40px}
+  .exp-row{grid-template-columns:1fr;gap:8px}
+  .ai-grid{grid-template-columns:1fr}
+  .vs-cards{grid-template-columns:1fr}
+  .heritage-band{grid-template-columns:1fr 1fr;padding:40px 24px}
+  .smj-sec,.vs-sec{padding:80px 24px}
+  .tl::before{left:68px}
+  .tl-row{grid-template-columns:68px 1fr;gap:28px}
+  .tl-row::before{left:64px}
+  footer{padding:28px 24px}
+}
+</style>
 </head>
 <body>
 
-    <div id="preloader"><div class="loader-bar"><div class="loader-fill"></div></div></div>
+<!-- ═══ LOADER ═══ -->
+<div id="loader">
+  <div class="l-ring-outer">
+    <div class="l-glow"></div>
+    <div class="l-spin">
+      <!-- PHOTOREALISTIC ASHOKA CHAKRA SVG -->
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
 
-    <nav>
-        <a href="#" class="logo">pratyushswain<span>.in</span></a>
-        <div class="nav-links">
-            <a href="#vision">Vision</a>
-            <a href="#about">Founder</a>
-            <a href="#contact" class="nav-cta">Connect</a>
-        </div>
-    </nav>
+<defs>
 
-    <header>
-        <div class="reveal">
-            <div class="status"><div class="dot"></div>SYSTEMS // ODISHA</div>
-            <h1>Pratyush Kumar Swain</h1>
-            <p class="hero-sub">
-Founder of <b>UPSChub</b>. A physics graduate, tech enthusiast, and lifelong learner committed to simplifying UPSC preparation through logic, discipline, and AI-powered learning.</p>
+<radialGradient id="hub-grad" cx="40%" cy="35%" r="65%">
+<stop offset="0%" stop-color="#5A8AF0"/>
+<stop offset="40%" stop-color="#1650D0"/>
+<stop offset="100%" stop-color="#061880"/>
+</radialGradient>
 
-</div>
-    </header>
+<linearGradient id="rim-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" stop-color="#4A7DE8"/>
+<stop offset="50%" stop-color="#0B37A0"/>
+<stop offset="100%" stop-color="#4A7DE8"/>
+</linearGradient>
 
-    <div class="container">
-        <div class="bento">
-            
-            <div class="card wide reveal" id="vision">
-                <div class="icon-box"><i data-lucide="eye" size="14"></i></div>
-                <h3>The Vision</h3>
-                <p>
+<radialGradient id="spoke-grad" cx="50%" cy="0%" r="100%">
+<stop offset="0%" stop-color="#4A7DE8"/>
+<stop offset="50%" stop-color="#0B37A0"/>
+<stop offset="100%" stop-color="#061880"/>
+</radialGradient>
 
-UPSChub was born from a simple realization: UPSC preparation doesn’t have to feel confusing, isolated, or overwhelming. It should be structured, meaningful, and deeply human.
-<br><br>
-The vision is to build a learning ecosystem where aspirants don’t just consume information, but truly understand it, connect ideas, and grow with confidence. By blending the discipline of traditional study methods with the precision of modern digital and AI-driven tools, UPSChub helps students focus on what truly matters—clarity over chaos and consistency over pressure.
-<br><br>
-At its core, UPSChub exists to give aspirants confidence in their preparation, direction in their journey, and purpose in their pursuit of public service.
-</p>
+<filter id="chakra-shadow">
+<feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#0B37A0" flood-opacity="0.5"/>
+</filter>
 
-</div>
+</defs>
 
-            <div class="card small reveal">
-                <div class="icon-box"><i data-lucide="bar-chart-3" size="14"></i></div>
-                <h3>Analytics</h3>
-                <p>
-<b>Smart Analytics</b><br><br>
-UPSChub’s analytics are designed to turn preparation into a clear, measurable journey. Instead of guessing what works, aspirants gain real insights into their strengths, gaps, and progress over time.
-<br><br>
-By tracking study patterns, performance trends, and topic-wise consistency, the platform helps learners make smarter decisions—what to revise, what to improve, and where to focus next.
-<br><br>
-The goal isn’t data overload, but direction. UPSChub analytics transform raw effort into purposeful action, helping aspirants study with awareness, confidence, and control.
-</p>
-</div>
+<!-- OUTER RIM -->
+<circle cx="200" cy="200" r="180" fill="none" stroke="url(#rim-stroke)" stroke-width="16"/>
+<circle cx="200" cy="200" r="165" fill="none" stroke="#0B37A0" stroke-width="2" opacity=".4"/>
 
-            <div class="card full reveal" id="about">
-                <div class="icon-box"><i data-lucide="user" size="14"></i></div>
-                <h3>Meet the Founder</h3>
-<p>
-Based in <b>Berhampur, Odisha</b>, Pratyush Swain is a <b>B.Sc. Physics</b> graduate, AI enthusiast, and lifelong learner with a deep respect for discipline and clarity. Shaped by scientific thinking and real aspirant challenges, he brings a logical, structured approach to UPSC preparation.
-<br><br>
-With a vision to make learning focused, accessible, and purpose-driven, Pratyush founded UPSChub to empower the next generation of civil servants—helping them prepare not just harder, but smarter, with confidence and direction.
-</p>
-</div>
+<!-- HUB -->
+<circle cx="200" cy="200" r="55" fill="url(#hub-grad)"/>
+<circle cx="200" cy="200" r="55" fill="none" stroke="#4A7DE8" stroke-width="2" opacity=".6"/>
 
-           <div class="card wide reveal">
-    <div class="icon-box">
-        <i data-lucide="cpu" size="16"></i>
+<!-- SPOKES -->
+<g fill="url(#spoke-grad)" filter="url(#chakra-shadow)">
+
+<rect x="197" y="65" width="6" height="135" rx="3"/>
+
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(15 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(30 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(45 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(60 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(75 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(90 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(105 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(120 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(135 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(150 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(165 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(180 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(195 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(210 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(225 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(240 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(255 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(270 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(285 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(300 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(315 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(330 200 200)"/>
+<rect x="197" y="65" width="6" height="135" rx="3" transform="rotate(345 200 200)"/>
+
+</g>
+
+<!-- INNER RING -->
+<circle cx="200" cy="200" r="145" fill="none" stroke="#4A7DE8" stroke-width="2"/>
+
+<!-- DOTS PERFECTLY ON SAME RADIUS -->
+<g fill="#4A7DE8">
+
+<circle cx="200" cy="35" r="6"/>
+
+<circle cx="200" cy="35" r="6" transform="rotate(15 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(30 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(45 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(60 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(75 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(90 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(105 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(120 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(135 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(150 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(165 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(180 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(195 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(210 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(225 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(240 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(255 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(270 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(285 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(300 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(315 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(330 200 200)"/>
+<circle cx="200" cy="35" r="6" transform="rotate(345 200 200)"/>
+
+</g>
+
+</svg>
     </div>
-
-    <h3>AI-Powered Learning</h3>
-    <p>
-        Purpose-built AI systems designed to cut through information overload and bring clarity, precision, and direction to UPSC preparation.
-    </p>
-
-    <div class="ai-list">
-
-        <div class="ai-item">
-            <i data-lucide="sparkles" size="14" style="color:var(--accent)"></i>
-            <div>
-                <b>Intelligent Content Curation</b><br>
-                Curates daily current affairs and static content into concise, exam-focused insights.
-            </div>
-        </div>
-
-        <div class="ai-item">
-            <i data-lucide="brain" size="14" style="color:var(--accent)"></i>
-            <div>
-                <b>Adaptive Smart Pedagogy</b><br>
-                Aligns study plans with individual learning patterns, revision cycles, and consistency goals.
-            </div>
-        </div>
-
-        <div class="ai-item">
-            <i data-lucide="activity" size="14" style="color:var(--accent)"></i>
-            <div>
-                <b>Pattern & Performance Analysis</b><br>
-                Identifies trends in exams and performance to guide focused, data-backed preparation.
-            </div>
-        </div>
-
-        <div class="ai-item">
-            <i data-lucide="target" size="14" style="color:var(--accent)"></i>
-            <div>
-                <b>Decision-Focused Insights</b><br>
-                Helps aspirants know what to study next, what to revise, and what to skip.
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-            <div class="card small reveal">
-    <div class="icon-box">
-        <i data-lucide="map-pin" size="14"></i>
-    </div>
-    <h3>Rooted & Rising</h3>
-    <p>
-        Built in <b>Berhampur, India</b>, with a mission designed to reach and support aspirants across the nation.
-    </p>
-</div>
-
-
-        </div>
-
-       <div class="contact reveal" id="contact">
-  <div class="contact-container">
-    <p class="contact-label">Connect Directly</p>
-    <h2 class="contact-title">Let’s Shape the Future of Learning</h2>
-    <p class="contact-desc">
-      Whether you’re an aspirant, collaborator, or just curious, reach out.<br>
-      Let’s create smarter, purposeful UPSC journeys together.
-    </p>
-    <div class="socials">
-      <a href="#" class="social-btn">LinkedIn</a>
-      <a href="#" class="social-btn">Instagram</a>
-      <a href="upschub.online" class="social-btn">UPSChub</a>
-    </div>
-    <a href="mailto:pratyushkumarswain01@gmail.com" class="cta-mail">
-      Get in Touch <i data-lucide="send" size="14"></i>
-    </a>
   </div>
+  <div class="l-title">PRATYUSH SWAIN</div>
+  <div class="l-smj">सत्यमेव जयते</div>
+  <div class="l-eng">Truth Alone Triumphs · Satyameva Jayate</div>
+  <div class="l-bar"><div class="l-bar-fill"></div></div>
 </div>
 
+<!-- ═══ CURSOR ═══ -->
+<div id="cur"><div id="cr"></div><div id="cd"></div></div>
 
-    <footer style="display: flex; justify-content: space-between; padding: 12px 24px; font-size: 0.85rem; color: #888; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border-top: 1px solid #e0e0e0; user-select: none;">
-  <span>© 2026 // Pratyush Swain</span>
-  <span style="font-weight: 600; letter-spacing: 1px; color: var(--accent, #5c4dff); text-transform: lowercase;">
-  pratyushswain.in
-</span>
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a class="nav-brand" href="#">
+    <svg class="nav-cw" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <g class="nav-cw-spin" transform-origin="100 100">
+        <circle cx="100" cy="100" r="88" fill="none" stroke="#0B37A0" stroke-width="7"/>
+        <circle cx="100" cy="100" r="27" fill="#0B37A0"/>
+        <g fill="#0B37A0">
+          <polygon points="97,12 103,12 101.5,73 98.5,73"/>
+          <polygon points="97,127 101.5,127 103,188 97,188"/>
+          <polygon points="12,97 12,103 73,101.5 73,98.5"/>
+          <polygon points="127,98.5 127,101.5 188,103 188,97"/>
+          <polygon points="37.4,41.2 42.2,36.4 82.8,77 78,81.8"/>
+          <polygon points="117.2,118.2 122,113.4 162.6,154 157.8,158.8"/>
+          <polygon points="162.6,46 157.8,41.2 117.2,81.8 122,86.6"/>
+          <polygon points="42.2,163.6 37.4,158.8 78,118.2 82.8,123"/>
+          <polygon points="21.7,68 24.4,62 78.6,87.5 75.4,93"/>
+          <polygon points="121.4,107 124.6,101.5 178.3,132 175.6,138"/>
+          <polygon points="178.3,68 175.6,62 121.4,93 124.6,98.5"/>
+          <polygon points="24.4,138 21.7,132 75.4,107 78.6,112.5"/>
+          <polygon points="68,21.7 62,24.4 87.5,78.6 93,75.4"/>
+          <polygon points="107,121.4 101.5,124.6 132,178.3 138,175.6"/>
+          <polygon points="138,21.7 132,24.4 107,78.6 112.5,75.4"/>
+          <polygon points="62,175.6 68,178.3 93,124.6 87.5,121.4"/>
+        </g>
+        <g fill="#0B37A0" opacity="0.55">
+          <circle cx="100" cy="12" r="5"/>
+          <circle cx="188" cy="100" r="5"/>
+          <circle cx="100" cy="188" r="5"/>
+          <circle cx="12" cy="100" r="5"/>
+          <circle cx="37.4" cy="37.4" r="4"/>
+          <circle cx="162.6" cy="162.6" r="4"/>
+          <circle cx="162.6" cy="37.4" r="4"/>
+          <circle cx="37.4" cy="162.6" r="4"/>
+        </g>
+      </g>
+    </svg>
+    <span class="nav-name">Pratyush<span>.</span></span>
+  </a>
+  <ul class="nav-ul">
+    <li><a href="#about">About</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#ai">AI Tools</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#vision">UPSChub</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-btn" href="#contact">Let's Talk</a>
+</nav>
 
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="flag-strip" style="position:absolute;top:0;left:0;right:0;z-index:15;display:flex;height:5px"><div class="flag-s"></div><div class="flag-w"></div><div class="flag-g"></div></div>
+
+  <!-- PATTACHITRA top border -->
+  <div class="hero-patta-top">
+    <svg class="patta-svg" viewBox="0 0 1600 20" preserveAspectRatio="none">
+      <rect width="1600" height="20" fill="#EDE5C8"/>
+      <g fill="#C8940A">
+        <!-- repeated diamond + lotus pattern -->
+        <rect x="0" y="8" width="6" height="4" rx="1"/>
+        <polygon points="10,10 15,5 20,10 15,15"/>
+        <rect x="22" y="8" width="6" height="4" rx="1"/>
+        <polygon points="32,10 37,5 42,10 37,15"/>
+        <rect x="44" y="8" width="6" height="4" rx="1"/>
+        <polygon points="54,10 59,5 64,10 59,15"/>
+        <rect x="66" y="8" width="6" height="4" rx="1"/>
+        <polygon points="76,10 81,5 86,10 81,15"/>
+        <rect x="88" y="8" width="6" height="4" rx="1"/>
+        <polygon points="98,10 103,5 108,10 103,15"/>
+        <rect x="110" y="8" width="6" height="4" rx="1"/>
+        <polygon points="120,10 125,5 130,10 125,15"/>
+      </g>
+      <!-- repeat same pattern tiled -->
+      <use href="#patta-tile" x="0"/>
+    </svg>
+  </div>
+  <div class="hero-patta-bot"></div>
+
+  <div class="hero-content">
+    <div class="h-smj">सत्यमेव जयते</div>
+    <div class="h-smj-t">Truth Alone Triumphs · National Motto of India</div>
+    <div class="h-tag">Portfolio 2026 · Berhampur, Odisha</div>
+    <h1 class="h-name">Pratyush<br><em>Swain</em></h1>
+    <p class="h-role">Founder · Educator · AI Specialist</p>
+    <p class="h-desc">From the ancient land of the Konark Sun Temple and Jagannath Puri — carrying Odisha's legacy of wisdom into India's AI-powered future through UPSChub.</p>
+    <div class="h-ctas">
+      <a class="btn-sf" href="#vision">🏛️ Explore UPSChub</a>
+      <a class="btn-nv" href="#about">My Story</a>
+    </div>
+    <div class="h-loc"><span class="loc-dot"></span>Berhampur, Odisha, India 🇮🇳</div>
+  </div>
+
+  <!-- REALISTIC ASHOKA CHAKRA - HERO -->
+  <div class="hero-right">
+    <div class="chakra-3d-wrap">
+      <svg class="chakra-canvas" viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="hg-rim" cx="42%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#6090F8"/>
+            <stop offset="30%" stop-color="#1650D0"/>
+            <stop offset="70%" stop-color="#0B37A0"/>
+            <stop offset="100%" stop-color="#051260"/>
+          </radialGradient>
+          <radialGradient id="hg-hub" cx="38%" cy="32%" r="70%">
+            <stop offset="0%" stop-color="#7AAAF8"/>
+            <stop offset="35%" stop-color="#1650D0"/>
+            <stop offset="80%" stop-color="#0B37A0"/>
+            <stop offset="100%" stop-color="#040E60"/>
+          </radialGradient>
+          <radialGradient id="hg-spoke" cx="50%" cy="20%" r="85%">
+            <stop offset="0%" stop-color="#5A88F0"/>
+            <stop offset="60%" stop-color="#0E42C0"/>
+            <stop offset="100%" stop-color="#07208A"/>
+          </radialGradient>
+          <filter id="shadow3d" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="3" dy="6" stdDeviation="6" flood-color="#020A50" flood-opacity="0.5"/>
+            <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#0B37A0" flood-opacity="0.3"/>
+          </filter>
+          <filter id="glowf">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+          <!-- Rim bevel gradient -->
+          <linearGradient id="rim-bevel" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7AAAF8"/>
+            <stop offset="25%" stop-color="#1650D0"/>
+            <stop offset="50%" stop-color="#0B37A0"/>
+            <stop offset="75%" stop-color="#1650D0"/>
+            <stop offset="100%" stop-color="#6090F8"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Drop shadow -->
+        <ellipse cx="262" cy="496" rx="170" ry="16" fill="rgba(5,18,96,0.25)"/>
+
+        <!-- Outer glow ring -->
+        <circle cx="260" cy="260" r="248" fill="none" stroke="rgba(74,125,232,0.12)" stroke-width="20"/>
+
+        <!-- OUTER RIM — 3D bevel effect using two rings -->
+        <circle cx="260" cy="260" r="238" fill="none" stroke="#6090F8" stroke-width="1.5" opacity="0.5"/>
+        <circle cx="260" cy="260" r="232" fill="url(#hg-rim)" stroke="none"/>
+        <circle cx="260" cy="260" r="232" fill="none" stroke="url(#rim-bevel)" stroke-width="18"/>
+        <!-- Inner edge of rim -->
+        <circle cx="260" cy="260" r="222" fill="none" stroke="#0B37A0" stroke-width="3" opacity="0.6"/>
+        <circle cx="260" cy="260" r="218" fill="none" stroke="#4A7DE8" stroke-width="1" opacity="0.35"/>
+        <!-- Rim highlight arc (top-left catches light) -->
+        <path d="M 120,118 A 200,200 0 0,1 398,112" fill="none" stroke="rgba(200,230,255,0.2)" stroke-width="12" stroke-linecap="round"/>
+
+        <!-- 24 SPOKES — each is a proper tapered shape -->
+        <!-- Spoke angle: i * 15°, from hub edge (r=72) to rim inner edge (r=218) -->
+        <!-- We compute using JS-like approach: 24 spokes at 15° intervals -->
+        <!-- Width: 5px at hub, tapering to 3px at rim -->
+        <g filter="url(#shadow3d)">
+          <!-- Using rect rotated for each spoke, centered at 260,260 -->
+          <g transform="translate(260,260)">
+            <!-- Spoke 1: 270° = top -->
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(0)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(15)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(30)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(45)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(60)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(75)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(90)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(105)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(120)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(135)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(150)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(165)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(180)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(195)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(210)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(225)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(240)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(255)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(270)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(285)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(300)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(315)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(330)"/>
+            <rect x="-2.5" y="-218" width="5" height="146" rx="2" fill="url(#hg-spoke)" transform="rotate(345)"/>
+          </g>
+        </g>
+
+        <!-- 24 BEAD DOTS at rim -->
+        <g fill="#4A7DE8" filter="url(#glowf)">
+          <g transform="translate(260,260)">
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(0)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(15)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(30)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(45)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(60)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(75)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(90)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(105)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(120)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(135)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(150)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(165)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(180)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(195)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(210)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(225)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(240)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(255)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(270)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(285)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(300)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(315)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(330)"/>
+            <circle cx="0" cy="-230" r="7.5" transform="rotate(345)"/>
+            <!-- Bead highlights -->
+            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(0)"/>
+            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(90)"/>
+            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(180)"/>
+            <circle cx="-1" cy="-232" r="3" fill="rgba(200,230,255,0.4)" transform="rotate(270)"/>
+          </g>
+        </g>
+
+        <!-- CENTRE HUB — 3D sphere effect -->
+        <circle cx="260" cy="260" r="68" fill="url(#hg-hub)"/>
+        <circle cx="260" cy="260" r="68" fill="none" stroke="#4A7DE8" stroke-width="3" opacity="0.6"/>
+        <circle cx="260" cy="260" r="60" fill="none" stroke="#1650D0" stroke-width="1.5" opacity="0.4"/>
+        <!-- Hub 3D highlight (sphere illusion) -->
+        <ellipse cx="246" cy="244" rx="22" ry="16" fill="rgba(200,230,255,0.2)" transform="rotate(-15,246,244)"/>
+        <circle cx="242" cy="240" r="6" fill="rgba(200,230,255,0.15)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div class="tick-t">
+      <div class="tick-i">Odisha</div><div class="tick-i">AI Specialist</div><div class="tick-i">UPSC Expert</div><div class="tick-i">B.Sc Physics</div><div class="tick-i">EdTech Founder</div><div class="tick-i">Konark Sun Temple</div><div class="tick-i">Jagannath Puri</div><div class="tick-i">UPSChub</div><div class="tick-i">Berhampur</div><div class="tick-i">सत्यमेव जयते</div>
+      <div class="tick-i">Odisha</div><div class="tick-i">AI Specialist</div><div class="tick-i">UPSC Expert</div><div class="tick-i">B.Sc Physics</div><div class="tick-i">EdTech Founder</div><div class="tick-i">Konark Sun Temple</div><div class="tick-i">Jagannath Puri</div><div class="tick-i">UPSChub</div><div class="tick-i">Berhampur</div><div class="tick-i">सत्यमेव जयते</div>
+    </div>
+  </div>
+</section>
+
+<!-- INDIA FLAG MARQUEE -->
+<div class="mq-wrap">
+  <div class="mq-row s"><div class="mq-t"><div class="mq-i">Educator</div><div class="mq-i">Founder</div><div class="mq-i">AI Specialist</div><div class="mq-i">UPSChub</div><div class="mq-i">Odisha</div><div class="mq-i">Educator</div><div class="mq-i">Founder</div><div class="mq-i">AI Specialist</div><div class="mq-i">UPSChub</div><div class="mq-i">Odisha</div></div></div>
+  <div class="mq-row w"><div class="mq-t rev"><div class="mq-iws">सत्यमेव जयते</div><div class="mq-iw">Truth Alone Triumphs</div><div class="mq-iws">◉ Ashoka Chakra</div><div class="mq-iw">Konark Sun Temple</div><div class="mq-iws">जय भारत</div><div class="mq-iw">Jai Hind</div><div class="mq-iws">सत्यमेव जयते</div><div class="mq-iw">Truth Alone Triumphs</div><div class="mq-iws">◉ Ashoka Chakra</div><div class="mq-iw">Konark Sun Temple</div><div class="mq-iws">जय भारत</div><div class="mq-iw">Jai Hind</div></div></div>
+  <div class="mq-row g"><div class="mq-t"><div class="mq-i">Physics Graduate</div><div class="mq-i">UPSC Expert</div><div class="mq-i">AI Mentor</div><div class="mq-i">Berhampur</div><div class="mq-i">Bharat 🇮🇳</div><div class="mq-i">Physics Graduate</div><div class="mq-i">UPSC Expert</div><div class="mq-i">AI Mentor</div><div class="mq-i">Berhampur</div><div class="mq-i">Bharat 🇮🇳</div></div></div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about" class="ab-sec">
+  <div class="sw">
+    <div class="ab-grid">
+      <div class="rvl">
+        <div class="ab-port">
+          <div class="port-bg">
+            <div class="port-arch"></div><div class="port-arch2"></div>
+            <svg class="port-chakra-bg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="#C8940A" stroke-width="2"/><circle cx="100" cy="100" r="14" fill="#C8940A"/><g transform="translate(100,100)"><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(0)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(15)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(30)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(45)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(60)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(75)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(90)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(105)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(120)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(135)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(150)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(165)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(180)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(195)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(210)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(225)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(240)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(255)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(270)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(285)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(300)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(315)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(330)"/><rect x="-2" y="-88" width="4" height="58" fill="#C8940A" transform="rotate(345)"/></g></svg>
+            <div class="port-cont">
+              <span class="port-lotus">🪷</span>
+              <div class="port-n1">PRATYUSH</div>
+              <div class="port-n2">SWAIN</div>
+              <div class="port-role">Founder · Educator · AI Specialist</div>
+              <span class="port-smj">सत्यमेव जयते</span>
+            </div>
+            <!-- Pattachitra colour strip -->
+            <div class="port-patta-strip">
+              <svg viewBox="0 0 400 14" width="100%" height="14"><rect width="400" height="14" fill="#EDE5C8"/><g><rect x="0" width="28" height="14" fill="#FF6600"/><rect x="28" width="28" height="14" fill="#C8940A"/><rect x="56" width="28" height="14" fill="#002C6E"/><rect x="84" width="28" height="14" fill="#138808"/><rect x="112" width="28" height="14" fill="#FF6600"/><rect x="140" width="28" height="14" fill="#C8940A"/><rect x="168" width="28" height="14" fill="#002C6E"/><rect x="196" width="28" height="14" fill="#138808"/><rect x="224" width="28" height="14" fill="#FF6600"/><rect x="252" width="28" height="14" fill="#C8940A"/><rect x="280" width="28" height="14" fill="#002C6E"/><rect x="308" width="28" height="14" fill="#138808"/><rect x="336" width="28" height="14" fill="#FF6600"/><rect x="364" width="28" height="14" fill="#C8940A"/></g></svg>
+            </div>
+          </div>
+          <div class="pc tl"></div><div class="pc tr"></div><div class="pc bl"></div><div class="pc br"></div>
+        </div>
+      </div>
+      <div class="rvr">
+        <div class="sk"><svg viewBox="0 0 40 40"><g transform="translate(20,20)"><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(0)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(30)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(60)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(90)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(120)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(150)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(180)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(210)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(240)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(270)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(300)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(330)"/><circle cx="0" cy="0" r="5" fill="#FF6600"/></g><circle cx="20" cy="20" r="18" fill="none" stroke="#FF6600" stroke-width="1.5"/></svg>About Me</div>
+        <h2 class="st">From Odisha's<br><em>Sacred Soil</em> to<br><strong>India's Future</strong></h2>
+        <div class="ab-pull">"The same analytical rigour that physics demands is exactly what UPSC rewards — I built UPSChub at that intersection."</div>
+        <p class="sb">Pratyush Swain is a tech enthusiast with a deep-rooted passion for Physics and Artificial Intelligence. A B.Sc. Physics graduate from Berhampur University (SDVM), he brings the analytical precision of science into every educational system he builds.<br><br>Born in the land of the Konark Sun Temple, Jagannath Puri, and ancient Kalinga civilisation — Odisha, the cradle of Indian scholarship — Pratyush carries that heritage of wisdom, truth, and craftsmanship into India's digital future.</p>
+        <div class="ab-data">
+          <div class="dc rv"><div class="dc-n">500+</div><div class="dc-l">Aspirants Guided</div></div>
+          <div class="dc rv"><div class="dc-n">3+</div><div class="dc-l">Years in EdTech</div></div>
+          <div class="dc rv"><div class="dc-n">AI</div><div class="dc-l">First Platform</div></div>
+          <div class="dc rv"><div class="dc-n">1</div><div class="dc-l">Mission: Transform India</div></div>
+        </div>
+        <a class="btn-sf" href="#contact">Connect with Pratyush →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="kdiv"><div class="kdl"></div><div class="kdm"><span class="kd-lotus">🪷</span><svg class="kd-cw" width="22" height="22" viewBox="0 0 44 44"><g transform="translate(22,22)"><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(0)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(30)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(60)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(90)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(120)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(150)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(180)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(210)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(240)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(270)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(300)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#C8940A" transform="rotate(330)"/><circle cx="0" cy="0" r="4" fill="#C8940A"/></g><circle cx="22" cy="22" r="20" fill="none" stroke="#C8940A" stroke-width="1.5"/></svg><span class="kd-lotus">🪷</span></div><div class="kdr"></div></div>
+
+<!-- ═══ EXPERTISE ═══ -->
+<section id="expertise" class="exp-sec">
+  <svg class="kw-bg" viewBox="0 0 680 680"><g transform="translate(340,340)"><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(0)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(15)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(30)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(45)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(60)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(75)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(90)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(105)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(120)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(135)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(150)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(165)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(180)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(195)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(210)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(225)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(240)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(255)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(270)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(285)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(300)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(315)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(330)"/><rect x="-3" y="-320" width="6" height="210" fill="#C8940A" transform="rotate(345)"/><circle cx="0" cy="0" r="40" fill="#C8940A"/></g><circle cx="340" cy="340" r="328" fill="none" stroke="#C8940A" stroke-width="12"/></svg>
+  <div class="sw">
+    <div class="rv"><div class="sk"><svg viewBox="0 0 40 40" width="16" height="16"><g transform="translate(20,20)"><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(0)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(30)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(60)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(90)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(120)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(150)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(180)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(210)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(240)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(270)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(300)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#F7D060" transform="rotate(330)"/><circle cx="0" cy="0" r="5" fill="#F7D060"/></g><circle cx="20" cy="20" r="18" fill="none" stroke="#F7D060" stroke-width="1.5"/></svg>What I Do</div><h2 class="st">Areas of Deep <em>Expertise</em></h2></div>
+    <div class="exp-list rv">
+      <div class="exp-row"><div class="exp-num">01</div><div class="exp-ti">Physics &amp; Analytical Thinking</div><div class="exp-de">B.Sc. Physics from Berhampur University — the discipline of understanding the universe's laws applies directly to cracking India's toughest exam.</div><div class="exp-tg">Academic</div></div>
+      <div class="exp-row"><div class="exp-num">02</div><div class="exp-ti">Artificial Intelligence &amp; EdTech</div><div class="exp-de">Pioneering AI-powered learning systems that personalise content, track performance, and intelligently curate study material for UPSC aspirants.</div><div class="exp-tg">Technology</div></div>
+      <div class="exp-row"><div class="exp-num">03</div><div class="exp-ti">UPSC Strategy &amp; Mentorship</div><div class="exp-de">Deep expertise in Prelims, Mains, and Interview — guiding aspirants from Day 1 to IPS/IAS with proven frameworks and structured long-term strategy.</div><div class="exp-tg">Education</div></div>
+      <div class="exp-row"><div class="exp-num">04</div><div class="exp-ti">Data-Driven Learning Design</div><div class="exp-de">Smart analytics identifying weak zones, tracking revision cycles, and designing adaptive plans that respond to live performance data in real time.</div><div class="exp-tg">Analytics</div></div>
+      <div class="exp-row"><div class="exp-num">05</div><div class="exp-ti">Digital Platform Architecture</div><div class="exp-de">Founding and scaling UPSChub — a full AI-enhanced educational ecosystem built for the modern UPSC aspirant across every corner of India.</div><div class="exp-tg">Founder</div></div>
+      <div class="exp-row"><div class="exp-num">06</div><div class="exp-ti">Content Strategy &amp; Modern Pedagogy</div><div class="exp-de">Crafting exam-ready content using AI and modern pedagogy — from daily current affairs to structured answer frameworks, at national scale.</div><div class="exp-tg">Content</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DIVIDER -->
+<div class="kdiv"><div class="kdl"></div><div class="kdm"><span style="color:var(--ig);font-size:1.2rem">❋</span><svg class="kd-cw" width="22" height="22" viewBox="0 0 44 44"><g transform="translate(22,22)"><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(0)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(45)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(90)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(135)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(180)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(225)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(270)"/><rect x="-1.5" y="-20" width="3" height="13" fill="#138808" transform="rotate(315)"/><circle cx="0" cy="0" r="4" fill="#138808"/></g><circle cx="22" cy="22" r="20" fill="none" stroke="#138808" stroke-width="1.5"/></svg><span style="color:var(--saffron);font-size:1.2rem">❋</span></div><div class="kdr"></div></div>
+
+<!-- ═══ AI ═══ -->
+<section id="ai" class="ai-sec">
+  <div class="sw">
+    <div class="rv"><div class="sk"><svg viewBox="0 0 40 40" width="16" height="16"><g transform="translate(20,20)"><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(0)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(30)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(60)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(90)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(120)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(150)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(180)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(210)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(240)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(270)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(300)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(330)"/><circle cx="0" cy="0" r="5" fill="#FF6600"/></g><circle cx="20" cy="20" r="18" fill="none" stroke="#FF6600" stroke-width="1.5"/></svg>AI Integration</div><h2 class="st">Smart Tools for <em>Smarter</em> <strong>Preparation</strong></h2></div>
+    <div class="ai-grid">
+      <div class="ai-card rv"><div class="ai-cn">01</div><div class="ai-ic">🧠</div><div class="ai-ti">AI-Driven Content Curation</div><div class="ai-bo">Intelligently refining daily current affairs for exam-specific focus — tagging every topic to UPSC syllabus in real time, cutting noise and surfacing signal.</div><span class="ai-tg">NLP · Content</span></div>
+      <div class="ai-card rv"><div class="ai-cn">02</div><div class="ai-ic">📈</div><div class="ai-ti">Smart Analytics Engine</div><div class="ai-bo">Deep pattern recognition revealing preparation gaps, optimal revision windows, and personalised performance trajectories for each aspirant.</div><span class="ai-tg">Analytics · ML</span></div>
+      <div class="ai-card rv"><div class="ai-cn">03</div><div class="ai-ic">🎯</div><div class="ai-ti">Adaptive Study Plans</div><div class="ai-bo">AI-generated schedules that evolve with performance — balancing GS subjects with dynamic current affairs cycles unique to each student.</div><span class="ai-tg">Personalisation</span></div>
+      <div class="ai-card rv"><div class="ai-cn">04</div><div class="ai-ic">✍️</div><div class="ai-ti">Intelligent Answer Analysis</div><div class="ai-bo">AI-assisted UPSC Mains evaluation — structural feedback, keyword coverage, argument flow, and scoring potential assessed in seconds.</div><span class="ai-tg">Evaluation · NLP</span></div>
+      <div class="ai-card rv"><div class="ai-cn">05</div><div class="ai-ic">🔄</div><div class="ai-ti">Spaced Repetition System</div><div class="ai-bo">Algorithmically optimised revision — ensuring critical facts and concepts are reviewed at exactly the right intervals for long-term retention.</div><span class="ai-tg">Memory Science</span></div>
+      <div class="ai-card rv"><div class="ai-cn">06</div><div class="ai-ic">💬</div><div class="ai-ti">AI Mentor Assistant</div><div class="ai-bo">An intelligent assistant trained on UPSC knowledge — answering syllabus queries and providing 24/7 guidance to aspirants across India.</div><span class="ai-tg">Chatbot · LLM</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS ═══ -->
+<section id="skills" class="sk-sec">
+  <div class="sw">
+    <div class="rv"><div class="sk"><svg viewBox="0 0 40 40" width="16" height="16"><g transform="translate(20,20)"><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(0)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(30)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(60)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(90)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(120)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(150)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(180)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(210)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(240)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(270)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(300)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(330)"/><circle cx="0" cy="0" r="5" fill="#FF6600"/></g><circle cx="20" cy="20" r="18" fill="none" stroke="#FF6600" stroke-width="1.5"/></svg>Proficiency</div><h2 class="st">Skills &amp; <em>Technologies</em></h2></div>
+    <div class="sk-lay">
+      <div class="rvl">
+        <p class="sk-txt">From Odishan scholarship to cutting-edge AI — a rare blend of analytical rigour, technical fluency, and educational expertise built to transform India's UPSC preparation landscape.</p>
+        <div class="pills"><span class="pill">GPT-4</span><span class="pill">Claude AI</span><span class="pill">Gemini</span><span class="pill">Notion AI</span><span class="pill">Prompt Engineering</span><span class="pill">Content Strategy</span><span class="pill">Data Analytics</span><span class="pill">Python</span><span class="pill">SEO</span><span class="pill">Video Production</span><span class="pill">Canva</span><span class="pill">Social Media</span><span class="pill">Answer Writing</span><span class="pill">Mind Mapping</span><span class="pill">Spaced Repetition</span><span class="pill">Odia 🌸</span><span class="pill">Hindi</span><span class="pill">English</span></div>
+        <div style="margin-top:36px;padding:24px;background:var(--ivory);border-left:4px solid var(--saffron);border:1px solid rgba(200,148,10,.2);border-left:4px solid var(--saffron)">
+          <div style="font-size:.6rem;font-weight:400;letter-spacing:.22em;text-transform:uppercase;color:var(--saffron);margin-bottom:8px">🏛️ Odisha Heritage</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--ink2);line-height:1.7">Born in the land of the Konark Sun Temple, Pattachitra art, and ancient Kalinga civilisation — carrying Odisha's timeless legacy of wisdom into the digital age.</div>
+        </div>
+      </div>
+      <div class="rvr" id="skillbars">
+        <div class="skbar"><div class="skh"><span class="sknm">AI &amp; Machine Learning Integration</span><span class="skpc">92%</span></div><div class="sktr"><div class="skfi" data-w="92"></div></div></div>
+        <div class="skbar"><div class="skh"><span class="sknm">UPSC Strategy &amp; Content Expertise</span><span class="skpc">97%</span></div><div class="sktr"><div class="skfi" data-w="97"></div></div></div>
+        <div class="skbar"><div class="skh"><span class="sknm">Physics &amp; Analytical Reasoning</span><span class="skpc">90%</span></div><div class="sktr"><div class="skfi" data-w="90"></div></div></div>
+        <div class="skbar"><div class="skh"><span class="sknm">Educational Platform Design</span><span class="skpc">88%</span></div><div class="sktr"><div class="skfi" data-w="88"></div></div></div>
+        <div class="skbar"><div class="skh"><span class="sknm">Content Creation &amp; Curation</span><span class="skpc">94%</span></div><div class="sktr"><div class="skfi" data-w="94"></div></div></div>
+        <div class="skbar"><div class="skh"><span class="sknm">Prompt Engineering &amp; AI Tools</span><span class="skpc">89%</span></div><div class="sktr"><div class="skfi" data-w="89"></div></div></div>
+        <div class="skbar"><div class="skh"><span class="sknm">Mentorship &amp; Communication</span><span class="skpc">95%</span></div><div class="sktr"><div class="skfi" data-w="95"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SATYAMEVA JAYATE FULL BANNER ═══ -->
+<div class="smj-sec">
+  <div class="smj-ring1"></div><div class="smj-ring2"></div><div class="smj-ring3"></div>
+  <!-- REALISTIC SMJ CHAKRA -->
+  <div class="smj-chakra-big">
+    <svg class="smj-spin" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg" width="180" height="180">
+      <defs>
+        <radialGradient id="smj-rim" cx="42%" cy="38%" r="65%"><stop offset="0%" stop-color="#7AAAF8"/><stop offset="40%" stop-color="#1650D0"/><stop offset="100%" stop-color="#061880"/></radialGradient>
+        <radialGradient id="smj-hub" cx="38%" cy="32%" r="68%"><stop offset="0%" stop-color="#8ABCFF"/><stop offset="40%" stop-color="#1650D0"/><stop offset="100%" stop-color="#040E60"/></radialGradient>
+        <filter id="smj-glow"><feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#F7D060" flood-opacity="0.5"/></filter>
+      </defs>
+      <circle cx="180" cy="180" r="168" fill="none" stroke="rgba(247,208,96,0.2)" stroke-width="18"/>
+      <circle cx="180" cy="180" r="160" fill="url(#smj-rim)" opacity="0"/>
+      <circle cx="180" cy="180" r="160" fill="none" stroke="#F7D060" stroke-width="16"/>
+      <circle cx="180" cy="180" r="151" fill="none" stroke="rgba(247,208,96,0.3)" stroke-width="2"/>
+      <g transform="translate(180,180)" filter="url(#smj-glow)">
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(0)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(15)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(30)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(45)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(60)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(75)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(90)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(105)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(120)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(135)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(150)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(165)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(180)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(195)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(210)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(225)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(240)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(255)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(270)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(285)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(300)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(315)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(330)"/>
+        <rect x="-2.2" y="-150" width="4.4" height="100" rx="2" fill="#F7D060" transform="rotate(345)"/>
+        <!-- Bead dots -->
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(0)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(15)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(30)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(45)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(60)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(75)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(90)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(105)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(120)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(135)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(150)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(165)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(180)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(195)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(210)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(225)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(240)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(255)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(270)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(285)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(300)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(315)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(330)"/>
+        <circle cx="0" cy="-160" r="5.5" fill="#F7D060" transform="rotate(345)"/>
+      </g>
+      <circle cx="180" cy="180" r="48" fill="url(#smj-hub)"/>
+      <circle cx="180" cy="180" r="48" fill="none" stroke="#F7D060" stroke-width="2.5" opacity="0.7"/>
+      <ellipse cx="168" cy="166" rx="16" ry="11" fill="rgba(255,240,160,0.2)" transform="rotate(-15,168,166)"/>
+      <path d="M 96,78 A 140,140 0 0,1 280,78" fill="none" stroke="rgba(255,240,200,0.15)" stroke-width="10" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <div class="smj-dv">सत्यमेव जयते</div>
+  <div class="smj-en">Satyameva Jayate — Truth Alone Triumphs</div>
+  <div class="smj-sub">National Motto of India · Inscribed below the National Emblem · From the Mundaka Upanishad<br>The guiding principle of Pratyush Swain's mission to empower India's future civil servants</div>
+  <div class="smj-tricolour"><div class="smj-tc s"></div><div class="smj-tc w"></div><div class="smj-tc g"></div></div>
+</div>
+
+<!-- ═══ VISION ═══ -->
+<section id="vision" class="vs-sec">
+  <div class="vs-bg-txt">UPSC</div>
+  <div class="vs-in">
+    <div class="vs-sk">The Platform</div>
+    <div class="vs-big rv">UPSChub<br><em>Learning</em><br>Ecosystem</div>
+    <div class="vs-q rv">"UPSChub is designed to modernise and streamline the preparation process for the Civil Services Examination — bridging the gap between traditional study methods and the digital-first requirements of today's competitive landscape."</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap" class="rv">
+      <a class="btn-sf" href="https://upschub.in" target="_blank">🏛️ Visit UPSChub</a>
+      <a class="btn-nv" href="#contact">Partner With Me</a>
+    </div>
+    <div class="vs-cards rv">
+      <div class="vc"><div class="vc-ic">📰</div><div class="vc-ti">Daily Current Affairs</div><div class="vc-bo">AI-refined daily current affairs mapped precisely to UPSC syllabus — cutting noise to deliver what truly matters for Prelims and Mains success.</div></div>
+      <div class="vc"><div class="vc-ic">📚</div><div class="vc-ti">Structured Study Plans</div><div class="vc-bo">Data-backed preparation schedules covering all GS papers, optional subjects, and CSAT — for both beginners and advanced aspirants.</div></div>
+      <div class="vc"><div class="vc-ic">🤝</div><div class="vc-ti">Aspirant Community</div><div class="vc-bo">A growing community sharing resources, motivation, peer reviews, and collaborative study sessions across India.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HERITAGE BAND ═══ -->
+<div class="heritage-band">
+  <div class="hb-item rv"><span class="hb-icon">🏛️</span><div class="hb-ti">Konark Sun Temple</div><div class="hb-tx">UNESCO World Heritage Site of Odisha — the Chariot of the Sun God Surya, built in 13th century. Symbol of Odisha's architectural genius.</div></div>
+  <div class="hb-item rv"><span class="hb-icon">🎨</span><div class="hb-ti">Pattachitra Art</div><div class="hb-tx">Ancient scroll painting tradition of Odisha — intricate patterns, mythological narratives, and natural colours from centuries of craft mastery.</div></div>
+  <div class="hb-item rv"><span class="hb-icon">🙏</span><div class="hb-ti">Jagannath Puri</div><div class="hb-tx">One of the four sacred dhams of India — Lord Jagannath's divine abode in Puri, Odisha, welcoming all souls regardless of caste or creed.</div></div>
+  <div class="hb-item rv"><span class="hb-icon">📜</span><div class="hb-ti">Kalinga Heritage</div><div class="hb-tx">Ancient Kalinga kingdom of modern Odisha — whose warriors inspired Emperor Ashoka to renounce violence and embrace the Dhamma of peace and truth.</div></div>
+</div>
+
+<!-- ═══ TIMELINE ═══ -->
+<section id="journey" class="tl-sec">
+  <div class="sw">
+    <div class="rv"><div class="sk"><svg viewBox="0 0 40 40" width="16" height="16"><g transform="translate(20,20)"><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(0)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(45)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(90)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(135)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(180)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(225)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(270)"/><rect x="-1.5" y="-18" width="3" height="12" fill="#FF6600" transform="rotate(315)"/><circle cx="0" cy="0" r="5" fill="#FF6600"/></g><circle cx="20" cy="20" r="18" fill="none" stroke="#FF6600" stroke-width="1.5"/></svg>My Journey</div><h2 class="st">The Road <em>So Far</em></h2></div>
+    <div class="tl">
+      <div class="tl-row rv"><div class="tl-yr">Start</div><div><div class="tl-ti">B.Sc. Physics — Berhampur University (SDVM), Odisha</div><div class="tl-tx">Built a rigorous analytical foundation through physics, mathematics, and scientific methodology in the heart of Odisha. Developed the discipline and pattern-recognition mindset that now powers both UPSC strategy and AI system design.</div></div></div>
+      <div class="tl-row rv"><div class="tl-yr">Discovery</div><div><div class="tl-ti">Deep Dive into AI &amp; Educational Technology</div><div class="tl-tx">Discovered the transformative intersection of Artificial Intelligence and education — exploring how AI tools, prompt engineering, and data analytics could solve real pain points faced by UPSC aspirants across India.</div></div></div>
+      <div class="tl-row rv"><div class="tl-yr">2024</div><div><div class="tl-ti">Founded UPSChub — Berhampur, Odisha 🌟</div><div class="tl-tx">Launched UPSChub — India's most AI-powered UPSC preparation platform. Began building a transformative learning ecosystem dedicated to empowering the next generation of IPS and IAS officers.</div></div></div>
+      <div class="tl-row rv"><div class="tl-yr">2025–26</div><div><div class="tl-ti">Scaling Impact Across India</div><div class="tl-tx">Growing UPSChub's reach to thousands of aspirants, integrating cutting-edge AI tools, mentoring students through Prelims to Interview, and putting Berhampur on the map as a hub for elite civil services preparation.</div></div></div>
+      <div class="tl-row rv"><div class="tl-yr">Vision 🇮🇳</div><div><div class="tl-ti">India's #1 AI-Powered UPSC Platform</div><div class="tl-tx">A fully adaptive AI ecosystem that democratises elite UPSC coaching for every aspirant in India — regardless of geography or economic background. सत्यमेव जयते — Truth Alone Triumphs.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="ct-sec">
+  <svg class="ct-kw" viewBox="0 0 500 500"><g transform="translate(250,250)"><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(0)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(15)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(30)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(45)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(60)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(75)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(90)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(105)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(120)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(135)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(150)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(165)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(180)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(195)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(210)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(225)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(240)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(255)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(270)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(285)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(300)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(315)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(330)"/><rect x="-3" y="-230" width="6" height="152" fill="#F7D060" transform="rotate(345)"/><circle cx="0" cy="0" r="34" fill="#F7D060"/></g><circle cx="250" cy="250" r="240" fill="none" stroke="#F7D060" stroke-width="10"/></svg>
+  <div class="sw" style="position:relative;z-index:2">
+    <div class="rv"><div class="sk">Get in Touch</div><h2 class="st">Let's Build <em>India's</em><br><strong style="color:rgba(254,252,244,.95)">Future Together</strong></h2></div>
+    <div class="ct-lay">
+      <div class="rvl">
+        <div class="ct-smj">सत्यमेव जयते</div>
+        <p class="ct-intro">From the land of truth-seekers and Kalinga scholars — Pratyush Swain welcomes meaningful conversations with aspirants, collaborators, institutions, and tech builders who share the vision of a better India.</p>
+        <div class="cls">
+          <a class="cl" href="https://linkedin.com/in/pratyushswain" target="_blank"><div class="cl-ic">💼</div><div class="cl-w"><div class="cl-lb">LinkedIn</div><div class="cl-vl">linkedin.com/in/pratyushswain</div></div><div class="cl-ar">→</div></a>
+          <a class="cl" href="https://instagram.com/pratyushswain" target="_blank"><div class="cl-ic">📸</div><div class="cl-w"><div class="cl-lb">Instagram</div><div class="cl-vl">@pratyushswain</div></div><div class="cl-ar">→</div></a>
+          <a class="cl" href="https://upschub.in" target="_blank"><div class="cl-ic">🏛️</div><div class="cl-w"><div class="cl-lb">UPSChub Platform</div><div class="cl-vl">upschub.in</div></div><div class="cl-ar">→</div></a>
+          <a class="cl" href="mailto:hello@pratyushswain.in"><div class="cl-ic">✉️</div><div class="cl-w"><div class="cl-lb">Email</div><div class="cl-vl">hello@pratyushswain.in</div></div><div class="cl-ar">→</div></a>
+        </div>
+      </div>
+      <div class="rvr">
+        <div class="ct-form">
+          <div class="fg"><label>Your Name</label><input type="text" placeholder="Full Name"></div>
+          <div class="fg"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+          <div class="fg"><label>Subject</label><input type="text" placeholder="How can I help?"></div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell me about your goal..."></textarea></div>
+          <button class="btn-send" onclick="sendMsg(this)">Send Message 🪷</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="f-brand">
+    <svg class="f-cw" viewBox="0 0 44 44"><g transform="translate(22,22)"><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(0)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(15)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(30)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(45)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(60)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(75)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(90)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(105)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(120)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(135)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(150)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(165)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(180)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(195)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(210)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(225)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(240)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(255)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(270)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(285)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(300)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(315)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(330)"/><rect x="-1.5" y="-19" width="3" height="12" fill="#F7D060" transform="rotate(345)"/><circle cx="0" cy="0" r="5" fill="#F7D060"/></g><circle cx="22" cy="22" r="20" fill="none" stroke="#F7D060" stroke-width="1.5"/></svg>
+    Pratyush Swain
+  </div>
+  <div class="f-smj">सत्यमेव जयते</div>
+  <div class="f-copy">© 2026 UPSChub · pratyushswain.in · Berhampur, Odisha 🇮🇳</div>
+  <div class="f-links"><a href="https://linkedin.com/in/pratyushswain" target="_blank">LinkedIn</a><a href="https://instagram.com/pratyushswain" target="_blank">Instagram</a><a href="https://upschub.in" target="_blank">UPSChub</a></div>
 </footer>
 
+<script>
+// LOADER
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('out'),2800));
 
-    <script>
-        // Micro-Loader Script
-        let fill = document.querySelector('.loader-fill');
-        let load = 0;
-        let int = setInterval(() => {
-            load += Math.random() * 15;
-            if(load > 100) load = 100;
-            fill.style.width = load + '%';
-            if(load >= 100) {
-                clearInterval(int);
-                setTimeout(() => {
-                    gsap.to("#preloader", { opacity: 0, duration: 0.3, onComplete: () => {
-                        document.getElementById('preloader').style.display = 'none';
-                        init();
-                    }});
-                }, 200);
-            }
-        }, 50);
+// CURSOR
+const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.left=mx+'px';cd.style.top=my+'px'});
+(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(a)})();
+document.querySelectorAll('a,button,.ai-card,.exp-row,.vc,.dc,.tl-row,.pill,.hb-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
 
-        function init() {
-            lucide.createIcons();
-            gsap.registerPlugin(ScrollTrigger);
-            
-            // Staggered Entrance
-            gsap.utils.toArray(".reveal").forEach((el) => {
-                gsap.from(el, { 
-                    y: 15, 
-                    opacity: 0, 
-                    duration: 0.6, 
-                    ease: "power2.out", 
-                    scrollTrigger: { 
-                        trigger: el, 
-                        start: "top 92%" 
-                    }
-                });
-            });
-        }
-    </script>
+// NAV
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('stuck',scrollY>60));
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('v'),i*65)})},{threshold:.1,rootMargin:'0px 0px -35px 0px'});
+document.querySelectorAll('.rv,.rvl,.rvr').forEach(el=>obs.observe(el));
+
+// SKILL BARS
+const sObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.skfi').forEach(b=>b.style.width=b.dataset.w+'%')})},{threshold:.2});
+sObs.observe(document.getElementById('skillbars'));
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.getElementById(a.getAttribute('href').slice(1));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+
+// FORM
+function sendMsg(btn){const o=btn.textContent;btn.textContent='Sending...';btn.style.opacity='.6';setTimeout(()=>{btn.textContent='✓ जय हिन्द! Sent!';btn.style.opacity='1';btn.style.background='#138808';setTimeout(()=>{btn.textContent=o;btn.style.background=''},3000)},1400)}
+
+// Parallax hero chakra
+window.addEventListener('scroll',()=>{
+  const el=document.querySelector('.hero-right');
+  if(el)el.style.transform=`translateY(calc(-50% + ${scrollY*0.12}px))`;
+});
+</script>
 </body>
 </html>
