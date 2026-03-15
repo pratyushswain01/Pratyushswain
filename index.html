@@ -546,6 +546,237 @@ display:inline-block;
   .tl-row::before{left:64px}
   footer{padding:28px 24px}
 }
+
+
+
+/* ═══ COOKIE BANNER ═══ */
+#cookie-banner{
+  position:fixed;bottom:0;left:0;right:0;z-index:99999;
+  background:var(--navy2);
+  border-top:3px solid transparent;
+  border-image:linear-gradient(to right,var(--saffron),var(--gold2),var(--ig)) 1;
+  padding:0;
+  transform:translateY(100%);
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 -8px 40px rgba(0,0,0,.35);
+}
+#cookie-banner.show{transform:translateY(0)}
+ 
+/* Pattachitra top strip on banner */
+.ck-patta{
+  height:6px;width:100%;
+  background:repeating-linear-gradient(90deg,
+    var(--saffron) 0,var(--saffron) 12px,
+    var(--gold2) 12px,var(--gold2) 24px,
+    var(--navy) 24px,var(--navy) 36px,
+    var(--ig) 36px,var(--ig) 48px
+  );
+}
+.ck-inner{
+  max-width:1280px;margin:0 auto;
+  padding:24px 64px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:28px;
+  align-items:center;
+}
+.ck-chakra{
+  width:44px;height:44px;flex-shrink:0;
+  animation:spinFull 12s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(247,208,96,.3));
+}
+.ck-text{}
+.ck-dv{
+  font-family:'Tiro Devanagari Sanskrit',serif;
+  font-size:1rem;color:var(--gold3);
+  letter-spacing:.1em;margin-bottom:4px;
+}
+.ck-title{
+  font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;
+  color:rgba(254,252,244,.9);letter-spacing:.12em;
+  margin-bottom:5px;
+}
+.ck-msg{
+  font-size:.75rem;font-weight:300;
+  color:rgba(254,252,244,.45);line-height:1.6;
+}
+.ck-msg a{
+  color:var(--gold2);text-decoration:none;
+  border-bottom:1px solid rgba(232,168,0,.3);
+  transition:border-color .2s,color .2s;
+}
+.ck-msg a:hover{color:var(--gold3);border-color:var(--gold3)}
+.ck-btns{
+  display:flex;flex-direction:column;gap:10px;
+  flex-shrink:0;
+}
+.ck-accept{
+  padding:11px 28px;
+  background:linear-gradient(135deg,var(--saffron),var(--saffron2));
+  color:#fff;border:none;cursor:pointer;
+  font-family:'Cinzel',serif;font-size:.68rem;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  border-radius:2px;
+  box-shadow:0 4px 16px rgba(255,102,0,.3);
+  transition:transform .2s,box-shadow .2s;
+  white-space:nowrap;
+}
+.ck-accept:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,102,0,.45)}
+.ck-policy{
+  padding:10px 28px;
+  background:transparent;
+  color:rgba(254,252,244,.5);
+  border:1px solid rgba(254,252,244,.15);
+  cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:.65rem;font-weight:300;
+  letter-spacing:.14em;text-transform:uppercase;
+  border-radius:2px;
+  transition:border-color .2s,color .2s;
+  white-space:nowrap;
+}
+.ck-policy:hover{border-color:rgba(247,208,96,.4);color:var(--gold3)}
+ 
+@media(max-width:768px){
+  .ck-inner{grid-template-columns:1fr;gap:16px;padding:20px 24px;text-align:center}
+  .ck-chakra{margin:0 auto}
+  .ck-btns{flex-direction:row;justify-content:center;flex-wrap:wrap}
+}
+ 
+/* ═══ COOKIE POLICY MODAL ═══ */
+#cookie-modal{
+  position:fixed;inset:0;z-index:100000;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:rgba(0,13,42,.85);
+  backdrop-filter:blur(12px);
+  opacity:0;visibility:hidden;
+  transition:opacity .4s ease,visibility .4s ease;
+}
+#cookie-modal.show{opacity:1;visibility:visible}
+.cm-box{
+  width:100%;max-width:680px;max-height:88vh;
+  background:var(--navy2);
+  border:1px solid rgba(247,208,96,.15);
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.5);
+}
+/* Top tricolour strip */
+.cm-flag{display:flex;height:5px}
+.cm-fs{flex:1;background:var(--saffron)}
+.cm-fw{flex:1;background:#fff}
+.cm-fg{flex:1;background:var(--ig)}
+.cm-head{
+  padding:32px 40px 24px;
+  border-bottom:1px solid rgba(247,208,96,.1);
+  display:flex;align-items:center;gap:20px;
+  flex-shrink:0;
+}
+.cm-head-ck{width:52px;height:52px;animation:spinFull 15s linear infinite;flex-shrink:0}
+.cm-head-txt{}
+.cm-dv2{
+  font-family:'Tiro Devanagari Sanskrit',serif;
+  font-size:1.2rem;color:var(--saffron2);
+  letter-spacing:.1em;
+}
+.cm-htitle{
+  font-family:'Cinzel',serif;font-size:1.1rem;font-weight:600;
+  color:var(--gold3);letter-spacing:.15em;margin-top:4px;
+}
+.cm-close{
+  position:absolute;top:16px;right:16px;
+  width:32px;height:32px;
+  background:rgba(254,252,244,.06);
+  border:1px solid rgba(254,252,244,.12);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  color:rgba(254,252,244,.5);
+  font-size:1rem;
+  transition:background .2s,color .2s;
+  line-height:1;
+}
+.cm-close:hover{background:rgba(255,102,0,.2);color:var(--saffron);border-color:var(--saffron)}
+.cm-body{
+  overflow-y:auto;padding:28px 40px 32px;
+  flex:1;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(200,148,10,.3) transparent;
+}
+.cm-body::-webkit-scrollbar{width:4px}
+.cm-body::-webkit-scrollbar-thumb{background:rgba(200,148,10,.3);border-radius:2px}
+.cm-section{margin-bottom:28px}
+.cm-section:last-child{margin-bottom:0}
+.cm-sh{
+  font-family:'Cinzel',serif;font-size:.78rem;font-weight:600;
+  color:var(--gold2);letter-spacing:.16em;text-transform:uppercase;
+  margin-bottom:10px;
+  display:flex;align-items:center;gap:10px;
+}
+.cm-sh::before{
+  content:'';width:20px;height:1px;
+  background:linear-gradient(to right,var(--saffron),var(--gold2));
+  flex-shrink:0;
+}
+.cm-p{
+  font-size:.82rem;font-weight:300;line-height:1.85;
+  color:rgba(254,252,244,.5);
+}
+.cm-p strong{color:rgba(254,252,244,.75);font-weight:400}
+.cm-ul{
+  list-style:none;margin-top:8px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.cm-ul li{
+  font-size:.8rem;font-weight:300;line-height:1.7;
+  color:rgba(254,252,244,.45);
+  padding-left:18px;
+  position:relative;
+}
+.cm-ul li::before{
+  content:'❋';
+  position:absolute;left:0;
+  color:var(--saffron);font-size:.5rem;
+  top:5px;
+}
+.cm-quote{
+  font-family:'Tiro Devanagari Sanskrit',serif;
+  font-size:1rem;color:rgba(247,208,96,.35);
+  text-align:center;margin:20px 0 8px;
+  letter-spacing:.1em;
+}
+.cm-quote-eng{
+  font-size:.68rem;font-weight:200;letter-spacing:.2em;
+  color:rgba(254,252,244,.2);text-align:center;
+  text-transform:uppercase;
+}
+.cm-foot{
+  padding:20px 40px;
+  border-top:1px solid rgba(247,208,96,.1);
+  display:flex;gap:12px;align-items:center;justify-content:flex-end;
+  flex-shrink:0;flex-wrap:wrap;
+}
+.cm-dismiss{
+  padding:10px 24px;
+  background:linear-gradient(135deg,var(--saffron),var(--saffron2));
+  color:#fff;border:none;cursor:pointer;
+  font-family:'Cinzel',serif;font-size:.68rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  border-radius:2px;
+  box-shadow:0 4px 16px rgba(255,102,0,.25);
+  transition:transform .2s,box-shadow .2s;
+}
+.cm-dismiss:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,102,0,.4)}
+.cm-tricolour{
+  display:flex;gap:3px;margin-right:auto;
+}
+.cm-tc{width:32px;height:4px;border-radius:2px}
+.cm-tc.s{background:var(--saffron)}
+.cm-tc.w{background:rgba(254,252,244,.5)}
+.cm-tc.g{background:var(--ig)}
+
+
+
 </style>
 </head>
 <body>
@@ -1233,6 +1464,228 @@ Born in Odisha — the historic land of the Konark Sun Temple, Jagannath Puri, a
 </div>
 </footer>
 
+
+<!-- ═══ COOKIE BANNER ═══ -->
+<div id="cookie-banner">
+  <div class="ck-patta"></div>
+  <div class="ck-inner">
+    <!-- Mini Ashoka Chakra -->
+    <svg class="ck-chakra" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="88" fill="none" stroke="#F7D060" stroke-width="8"/>
+      <circle cx="100" cy="100" r="25" fill="#F7D060"/>
+      <g transform="translate(100,100)">
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(0)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(15)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(30)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(45)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(60)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(75)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(90)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(105)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(120)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(135)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(150)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(165)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(180)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(195)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(210)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(225)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(240)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(255)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(270)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(285)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(300)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(315)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(330)"/>
+        <rect x="-2" y="-86" width="4" height="56" rx="2" fill="#F7D060" transform="rotate(345)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(0)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(45)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(90)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(135)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(180)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(225)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(270)"/>
+        <circle cx="0" cy="-88" r="5" fill="#F7D060" transform="rotate(315)"/>
+      </g>
+    </svg>
+ 
+    <div class="ck-text">
+      <div class="ck-dv">🪷 सत्यमेव जयते — Truth Alone Triumphs</div>
+      <div class="ck-title">🇮🇳 This Website Uses Cookies · Jai Hind!</div>
+      <div class="ck-msg">
+        Namaste! Like the ancient wisdom of our Bharat, we believe in transparency.
+        This site uses cookies to enhance your experience, remember your preferences,
+        and help us understand how to serve you better.
+        By continuing, you honour the spirit of open knowledge.
+        <a href="#" onclick="openCookieModal();return false;">Read our full Cookie Policy →</a>
+      </div>
+    </div>
+ 
+    <div class="ck-btns">
+      <button class="ck-accept" onclick="acceptCookies()">
+        🪷 Accept All · स्वीकार करें
+      </button>
+      <button class="ck-policy" onclick="openCookieModal()">
+        Read Policy
+      </button>
+    </div>
+  </div>
+</div>
+ 
+<!-- ═══ COOKIE POLICY MODAL ═══ -->
+<div id="cookie-modal">
+  <div class="cm-box">
+    <div class="cm-flag"><div class="cm-fs"></div><div class="cm-fw"></div><div class="cm-fg"></div></div>
+ 
+    <div class="cm-head">
+      <!-- Mini spinning chakra -->
+      <svg class="cm-head-ck" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#FF6600" stroke-width="9"/>
+        <circle cx="100" cy="100" r="24" fill="#FF6600"/>
+        <g transform="translate(100,100)">
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(0)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(15)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(30)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(45)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(60)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(75)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(90)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(105)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(120)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(135)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(150)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(165)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(180)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(195)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(210)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(225)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(240)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(255)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(270)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(285)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(300)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(315)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(330)"/>
+          <rect x="-2" y="-84" width="4" height="55" rx="2" fill="#FF6600" transform="rotate(345)"/>
+        </g>
+      </svg>
+      <div class="cm-head-txt">
+        <div class="cm-dv2">🪷 नीति — Cookie Policy</div>
+        <div class="cm-htitle">PRATYUSH SWAIN · UPSCHUB · INDIA 🇮🇳</div>
+      </div>
+      <button class="cm-close" onclick="closeCookieModal()">✕</button>
+    </div>
+ 
+    <div class="cm-body">
+ 
+      <div class="cm-quote">सत्यमेव जयते</div>
+      <div class="cm-quote-eng">Truth Alone Triumphs — We believe in full transparency</div>
+ 
+      <div style="height:20px"></div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">🙏 Namaste — Our Promise to You</div>
+        <p class="cm-p">
+          Just as the Ashoka Chakra represents the wheel of truth and righteousness in our beloved 🇮🇳 Indian tricolour,
+          we at <strong>pratyushswain.in</strong> and <strong>UPSChub</strong> are fully committed to
+          transparency, honesty, and respect for your privacy. This Cookie Policy explains how we use cookies
+          on this website in plain, simple language — because <em>सत्यमेव जयते</em>.
+        </p>
+      </div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">🍪 What Are Cookies?</div>
+        <p class="cm-p">
+          Cookies are small text files stored on your device when you visit a website. Think of them like
+          a <strong>digital prasad</strong> — a small token that helps the site remember you and serve you better
+          on your next visit. They do not contain personal information like your name or address.
+        </p>
+      </div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">📋 Cookies We Use</div>
+        <ul class="cm-ul">
+          <li><strong>Essential Cookies</strong> — Necessary for the website to function. Like the foundation of a temple, without these the site cannot stand. These cannot be disabled.</li>
+          <li><strong>Preference Cookies</strong> — Remember your choices, language settings, and theme preferences so you have a smooth experience every visit — just like how India remembers its traditions.</li>
+          <li><strong>Analytics Cookies</strong> — Help us understand which pages are most helpful to visitors, how long people stay, and what content resonates — so we can serve you better.</li>
+          <li><strong>Performance Cookies</strong> — Ensure the site loads fast and runs smoothly across devices, from Delhi to Berhampur, from Kanyakumari to Kashmir.</li>
+        </ul>
+      </div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">🔒 Your Data — Your Right</div>
+        <p class="cm-p">
+          Inspired by India's Constitution and its fundamental rights, we believe your data belongs to <strong>you</strong>.
+          We do not sell, rent, or trade your information to any third party — ever.
+          Any data collected through cookies is used solely to improve this website and your experience on it.
+        </p>
+      </div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">🏛️ Third-Party Services</div>
+        <p class="cm-p">
+          This site may use trusted third-party services (such as Google Analytics or Google Fonts) which may
+          set their own cookies. These services are governed by their own privacy policies. We only work with
+          services that respect user privacy — just as India respects the dignity of every citizen.
+        </p>
+      </div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">⚙️ Managing Your Cookies</div>
+        <p class="cm-p">
+          You have full control. You can manage or delete cookies at any time through your browser settings.
+          However, please note that disabling certain cookies may affect the functionality of this website.
+          To manage cookies, visit your browser's settings — it's your right as a citizen of the digital India.
+        </p>
+        <ul class="cm-ul">
+          <li>Chrome: Settings → Privacy & Security → Cookies</li>
+          <li>Firefox: Preferences → Privacy & Security</li>
+          <li>Safari: Preferences → Privacy → Manage Website Data</li>
+          <li>Edge: Settings → Privacy, Search & Services</li>
+        </ul>
+      </div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">📬 Contact — Reach Pratyush</div>
+        <p class="cm-p">
+          If you have any questions about this Cookie Policy or how your data is used, please write to us.
+          We believe in open dialogue — just like the great democratic traditions of Bharat.
+        </p>
+        <ul class="cm-ul">
+          <li>Email: <strong>pratyushkumarswain01@gmail.com</strong></li>
+          <li>Platform: <strong>upschub.online</strong></li>
+          <li>Location: <strong>Berhampur, Odisha, India 🇮🇳</strong></li>
+        </ul>
+      </div>
+ 
+      <div class="cm-section">
+        <div class="cm-sh">📅 Last Updated</div>
+        <p class="cm-p">
+          This policy was last updated in <strong>March 2026</strong>.
+          As this portfolio and UPSChub evolve, this policy will be updated to reflect any changes.
+          We will always notify you of significant updates.
+        </p>
+      </div>
+ 
+      <div class="cm-quote" style="margin-top:24px">जय हिन्द 🇮🇳</div>
+      <div class="cm-quote-eng">Long Live India — With Truth, With Pride</div>
+ 
+    </div>
+ 
+    <div class="cm-foot">
+      <div class="cm-tricolour">
+        <div class="cm-tc s"></div>
+        <div class="cm-tc w"></div>
+        <div class="cm-tc g"></div>
+      </div>
+      <button class="cm-dismiss" onclick="acceptCookies();closeCookieModal()">
+        🪷 Accept & Close
+      </button>
+    </div>
+  </div>
+</div>
+ 
+ 
 <script>
 // LOADER
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('out'),2800));
@@ -1310,7 +1763,31 @@ btn.style.background='';
 
 }
 
-
+// ── COOKIE BANNER ──
+function hasCookieConsent(){
+  return localStorage.getItem('pratyush_cookie_consent')==='true';
+}
+function acceptCookies(){
+  localStorage.setItem('pratyush_cookie_consent','true');
+  document.getElementById('cookie-banner').classList.remove('show');
+}
+function openCookieModal(){
+  document.getElementById('cookie-modal').classList.add('show');
+}
+function closeCookieModal(){
+  document.getElementById('cookie-modal').classList.remove('show');
+}
+// Close modal on backdrop click
+document.getElementById('cookie-modal').addEventListener('click',function(e){
+  if(e.target===this) closeCookieModal();
+});
+// Show banner after 1.5s if no consent yet
+setTimeout(()=>{
+  if(!hasCookieConsent()){
+    document.getElementById('cookie-banner').classList.add('show');
+  }
+},1500);
+ 
   
 // Parallax hero chakra
 window.addEventListener('scroll',()=>{
