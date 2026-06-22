@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+
   *,
   *::before,
   *::after {
@@ -16,17 +17,18 @@
   }
 
   body {
-    @apply font-sans text-ink bg-white;
+    /* Using standard tailwind colors if 'ink' isn't defined in your config */
+    @apply font-sans text-gray-900 bg-white;
     margin: 0;
   }
 
-  /* Suppress blue outline in favour of custom focus rings */
   :focus {
     outline: none;
   }
 
   :focus-visible {
-    @apply ring-2 ring-accent ring-offset-2;
+    /* Using standard tailwind blue if 'accent' isn't defined */
+    @apply ring-2 ring-blue-500 ring-offset-2;
   }
 }
 
