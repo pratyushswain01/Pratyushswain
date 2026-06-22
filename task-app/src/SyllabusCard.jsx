@@ -6,16 +6,16 @@
  *   score    — 0-100 mastery score (from section_progress table)
  *   onClick  — navigate to section detail view
  */
-import { getMasteryLabel } from '../../lib/constants'
+import { getMasteryLabel } from './constants'
 
 const COLOR_MAP = {
-  blue:   { bar: 'bg-accent',       bg: 'bg-accent-subtle',    icon: 'text-accent' },
-  violet: { bar: 'bg-violet-500',   bg: 'bg-violet-50',        icon: 'text-violet-500' },
-  cyan:   { bar: 'bg-cyan-500',     bg: 'bg-cyan-50',          icon: 'text-cyan-500' },
-  amber:  { bar: 'bg-amber-400',    bg: 'bg-amber-50',         icon: 'text-amber-500' },
-  orange: { bar: 'bg-orange-500',   bg: 'bg-orange-50',        icon: 'text-orange-500' },
-  green:  { bar: 'bg-status-green', bg: 'bg-green-50',         icon: 'text-status-green' },
-  rose:   { bar: 'bg-rose-500',     bg: 'bg-rose-50',          icon: 'text-rose-500' },
+  blue: { bar: 'bg-accent', bg: 'bg-accent-subtle', icon: 'text-accent' },
+  violet: { bar: 'bg-violet-500', bg: 'bg-violet-50', icon: 'text-violet-500' },
+  cyan: { bar: 'bg-cyan-500', bg: 'bg-cyan-50', icon: 'text-cyan-500' },
+  amber: { bar: 'bg-amber-400', bg: 'bg-amber-50', icon: 'text-amber-500' },
+  orange: { bar: 'bg-orange-500', bg: 'bg-orange-50', icon: 'text-orange-500' },
+  green: { bar: 'bg-status-green', bg: 'bg-green-50', icon: 'text-status-green' },
+  rose: { bar: 'bg-rose-500', bg: 'bg-rose-50', icon: 'text-rose-500' },
 }
 
 export function SyllabusCard({ section, score = 0, onClick }) {
