@@ -12,5 +12,5 @@ export default defineConfig({
   },
   // If you are hosting in a subfolder like /task-app/, 
   // you MUST add this base property:
-  base: './',
+  base: '/task-app/',
 });
