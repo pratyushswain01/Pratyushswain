@@ -4,17 +4,17 @@
  * Calls useAuth() hooks — no direct Supabase imports here.
  */
 import { useState } from 'react'
-import { Input }  from '../ui/Input'
-import { Button } from '../ui/Button'
-import { useAuth } from '../../hooks/useAuth'
+import { Input } from './Input'
+import { Button } from './Button'
+import { useAuth } from './useAuth'
 
 export function AuthForm() {
   const { signIn, signUp, error } = useAuth()
 
-  const [mode, setMode]       = useState('signin')  // 'signin' | 'signup'
+  const [mode, setMode] = useState('signin')  // 'signin' | 'signup'
   const [loading, setLoading] = useState(false)
-  const [notice, setNotice]   = useState(null)
-  const [fields, setFields]   = useState({ email: '', password: '', fullName: '' })
+  const [notice, setNotice] = useState(null)
+  const [fields, setFields] = useState({ email: '', password: '', fullName: '' })
   const [fieldErrors, setFieldErrors] = useState({})
 
   const isSignUp = mode === 'signup'
@@ -26,7 +26,7 @@ export function AuthForm() {
 
   function validate() {
     const errs = {}
-    if (!fields.email)    errs.email    = 'Email is required.'
+    if (!fields.email) errs.email = 'Email is required.'
     if (!fields.password) errs.password = 'Password is required.'
     if (isSignUp && fields.password.length < 8) errs.password = 'Minimum 8 characters.'
     if (isSignUp && !fields.fullName.trim()) errs.fullName = 'Enter your name.'
