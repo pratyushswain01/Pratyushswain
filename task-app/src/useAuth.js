@@ -5,12 +5,12 @@
  * Listens to onAuthStateChange so the app reacts to token refresh / logout.
  */
 import { useState, useEffect } from 'react'
-import { supabase } from '../lib/supabaseClient'
+import { supabase } from './supabaseClient'
 
 export function useAuth() {
-  const [session, setSession]   = useState(null)
-  const [loading, setLoading]   = useState(true)
-  const [error,   setError]     = useState(null)
+  const [session, setSession] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     // Hydrate session on mount
