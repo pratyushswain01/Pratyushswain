@@ -10,11 +10,11 @@
  */
 import { useState, useEffect } from 'react'
 // Assuming these are all now inside task-app/src/
-import { JAM_SECTIONS } from './lib/constants'
+import { JAM_SECTIONS } from './constants'
 import { SyllabusCard } from './SyllabusCard' // If in the same folder
-import { supabase } from './lib/supabaseClient'
-import { useAuth } from './hooks/useAuth'
-import { Button } from './ui/Button'
+import { supabase } from './supabaseClient'
+import { useAuth } from './useAuth'
+import { Button } from './Button'
 
 export function Dashboard() {
   const { user, signOut } = useAuth()
